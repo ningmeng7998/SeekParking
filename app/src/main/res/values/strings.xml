@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ParkingHunt</string>
+    <string name="title_activity_about_f">About Developer</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Parkinghunt Notification</string>
+</resources>
