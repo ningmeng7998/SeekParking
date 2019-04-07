@@ -5,13 +5,18 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.DrawableRes;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,6 +29,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -128,6 +134,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         bt_Per = (Button) findViewById(R.id.b_peresent);
         bt_Uno = (Button) findViewById(R.id.b_unoccupied);
 
+        b_CurentLoc.setVisibility(View.GONE);
+        b_Show.setVisibility(View.GONE);
+        b_About.setVisibility(View.GONE);
+       // bt_Clear.setVisibility(View.GONE);
+
+
         Places.initialize(getApplicationContext(), "AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg");
         PlacesClient placesClient = Places.createClient(this);
         LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -182,6 +194,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             @Override
             public void onClick(View v) {
                 currentLocation();
+
             }
         });
         b_Search.setOnClickListener(new View.OnClickListener() {
@@ -229,112 +242,210 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void map_Clear() {
-        if(!bv.isBoo()) {Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show(); return;}
+        if (!bv.isBoo()) {
+            Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show();
+            return;
+        }
         mMap.clear();
     }
 
 
     private void map_All() {
-        try
-        {
-            if(!bv.isBoo()) {Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show(); return;}
+        try {
+            if (!bv.isBoo()) {
+                Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show();
+                return;
+            }
             mMap.clear();
             for (marker_Information info : ListParking_Info) {
-                if(info.bayid==null){info.bayid="";}
-                if(info.deviceid==null){info.deviceid="";}
-                if(info.description1==null){info.description1="";}
-                if(info.description2==null){info.description2="";}
-                if(info.description3==null){info.description3="";}
-                if(info.description4==null){info.description4="";}
-                if(info.duration1==null){info.duration1="";}
-                if(info.duration2==null){info.duration2="";}
-                if(info.duration3==null){info.duration3="";}
-                if(info.duration4==null){info.duration4="";}
-                if(info.endtime1==null){info.endtime1="";}
-                if(info.endtime2==null){info.endtime2="";}
-                if(info.endtime3==null){info.endtime3="";}
-                if(info.endtime4==null){info.endtime4="";}
+                if (info.bayid == null) {
+                    info.bayid = "";
+                }
+                if (info.deviceid == null) {
+                    info.deviceid = "";
+                }
+                if (info.description1 == null) {
+                    info.description1 = "";
+                }
+                if (info.description2 == null) {
+                    info.description2 = "";
+                }
+                if (info.description3 == null) {
+                    info.description3 = "";
+                }
+                if (info.description4 == null) {
+                    info.description4 = "";
+                }
+                if (info.duration1 == null) {
+                    info.duration1 = "";
+                }
+                if (info.duration2 == null) {
+                    info.duration2 = "";
+                }
+                if (info.duration3 == null) {
+                    info.duration3 = "";
+                }
+                if (info.duration4 == null) {
+                    info.duration4 = "";
+                }
+                if (info.endtime1 == null) {
+                    info.endtime1 = "";
+                }
+                if (info.endtime2 == null) {
+                    info.endtime2 = "";
+                }
+                if (info.endtime3 == null) {
+                    info.endtime3 = "";
+                }
+                if (info.endtime4 == null) {
+                    info.endtime4 = "";
+                }
             }
-            int infoFinded = 0;
+
+
+            int infoFound = 0;
             for (marker_Parking park : ListParking) {
-                if(park.bay_id==null){park.bay_id="";}
-                if(park.status==null){park.status="";}
-                if(park.lon==null){park.lon="";}
-                if(park.lat==null){park.lat="";}
-                if(park.st_marker_id==null){park.st_marker_id="";}
-                if ((park.bay_id!="") && (park.lat!="") && (park.lon!=""))
-                {
+                if (park.bay_id == null) {
+                    park.bay_id = "";
+                }
+                if (park.status == null) {
+                    park.status = "";
+                }
+                if (park.lon == null) {
+                    park.lon = "";
+                }
+                if (park.lat == null) {
+                    park.lat = "";
+                }
+                if (park.st_marker_id == null) {
+                    park.st_marker_id = "";
+                }
+                if ((park.bay_id != "") && (park.lat != "") && (park.lon != "")) {
                     MarkerOptions Mark = new MarkerOptions().position(new LatLng(Double.parseDouble(park.lat), Double.parseDouble(park.lon)));
                     int WID = 0;
-                    if (park.status.trim().toLowerCase().equals("present")) { WID = 1; } else { WID = 2; }
-                    infoFinded = 0;
+                    if (park.status.trim().toLowerCase().equals("present")) {
+                        WID = 1;
+                    } else if (park.status.trim().toLowerCase().equals("unoccupied")){
+                        WID = 2;
+                    }else{
+                        WID = 3;
+                    }
+
+                    infoFound = 0;
                     Mark.title(park.status);
                     for (marker_Information info : ListParking_Info) {
                         if (info.bayid.trim().toLowerCase().equals(park.bay_id.trim().toLowerCase())) {
-                            infoFinded = 1;
+                            infoFound = 1;
                             String snippetS = "";
                             snippetS = "Description : \n" + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
                                     "Duration : \n" + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
                                     "EndTime : \n" + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
-                            snippetS = snippetS.replace(" " ,"").trim();
-                            snippetS = snippetS.replace("\n\n","\n");
-                            snippetS = snippetS.replace("\n\n","\n");
-                            snippetS = snippetS.replace("\n\n","\n");
-                            snippetS = snippetS.replace("\n\n","\n");
+                            snippetS = snippetS.replace(" ", "").trim();
+                            snippetS = snippetS.replace("\n\n", "\n");
+                            snippetS = snippetS.replace("\n\n", "\n");
+                            snippetS = snippetS.replace("\n\n", "\n");
+                            snippetS = snippetS.replace("\n\n", "\n");
                             snippetS = snippetS.trim();
                             Mark.snippet(snippetS);
                         }
-                        if (infoFinded==1) {break;}
+                        if (infoFound == 1) {
+                            break;
+                        }
                     }
-                    if (infoFinded == 0) {WID = 3;}
+//                    if (infoFound == 0) {
+//                        WID = 3;
+//                    }
                     if (WID==1) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));}
                     if (WID==2) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));}
-                    if (WID==3) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));}
+                     //if (WID==3) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));}
                     mMap.addMarker(Mark);
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error Durring Load Markers", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void map_pre() {
-        try
-        {
-            if(!bv.isBoo()) {Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show(); return;}
+        try {
+            if (!bv.isBoo()) {
+                Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show();
+                return;
+            }
             mMap.clear();
             for (marker_Information info : ListParking_Info) {
-                if(info.bayid==null){info.bayid="";}
-                if(info.deviceid==null){info.deviceid="";}
-                if(info.description1==null){info.description1="";}
-                if(info.description2==null){info.description2="";}
-                if(info.description3==null){info.description3="";}
-                if(info.description4==null){info.description4="";}
-                if(info.duration1==null){info.duration1="";}
-                if(info.duration2==null){info.duration2="";}
-                if(info.duration3==null){info.duration3="";}
-                if(info.duration4==null){info.duration4="";}
-                if(info.endtime1==null){info.endtime1="";}
-                if(info.endtime2==null){info.endtime2="";}
-                if(info.endtime3==null){info.endtime3="";}
-                if(info.endtime4==null){info.endtime4="";}
+                if (info.bayid == null) {
+                    info.bayid = "";
+                }
+                if (info.deviceid == null) {
+                    info.deviceid = "";
+                }
+                if (info.description1 == null) {
+                    info.description1 = "";
+                }
+                if (info.description2 == null) {
+                    info.description2 = "";
+                }
+                if (info.description3 == null) {
+                    info.description3 = "";
+                }
+                if (info.description4 == null) {
+                    info.description4 = "";
+                }
+                if (info.duration1 == null) {
+                    info.duration1 = "";
+                }
+                if (info.duration2 == null) {
+                    info.duration2 = "";
+                }
+                if (info.duration3 == null) {
+                    info.duration3 = "";
+                }
+                if (info.duration4 == null) {
+                    info.duration4 = "";
+                }
+                if (info.endtime1 == null) {
+                    info.endtime1 = "";
+                }
+                if (info.endtime2 == null) {
+                    info.endtime2 = "";
+                }
+                if (info.endtime3 == null) {
+                    info.endtime3 = "";
+                }
+                if (info.endtime4 == null) {
+                    info.endtime4 = "";
+                }
             }
             int infoFinded = 0;
             for (marker_Parking park : ListParking) {
-                if (park.status.trim().toLowerCase().equals("present"))
-                {
-                    if(park.bay_id==null){park.bay_id="";}
-                    if(park.status==null){park.status="";}
-                    if(park.lon==null){park.lon="";}
-                    if(park.lat==null){park.lat="";}
-                    if(park.st_marker_id==null){park.st_marker_id="";}
-                    if ((park.bay_id!="") && (park.lat!="") && (park.lon!=""))
-                    {
+                if (park.status.trim().toLowerCase().equals("present")) {
+                    if (park.bay_id == null) {
+                        park.bay_id = "";
+                    }
+                    if (park.status == null) {
+                        park.status = "";
+                    }
+                    if (park.lon == null) {
+                        park.lon = "";
+                    }
+                    if (park.lat == null) {
+                        park.lat = "";
+                    }
+                    if (park.st_marker_id == null) {
+                        park.st_marker_id = "";
+                    }
+                    if ((park.bay_id != "") && (park.lat != "") && (park.lon != "")) {
                         MarkerOptions Mark = new MarkerOptions().position(new LatLng(Double.parseDouble(park.lat), Double.parseDouble(park.lon)));
                         int WID = 0;
-                        if (park.status.trim().toLowerCase().equals("present")) { WID = 1; } else { WID = 2; }
+                        if (park.status.trim().toLowerCase().equals("present")) {
+                            WID = 1;
+                        } else if (park.status.trim().toLowerCase().equals("unoccupied")){
+                            WID = 2;
+                        }else{
+                            WID = 3;
+                        }
                         infoFinded = 0;
                         Mark.title(park.status);
                         for (marker_Information info : ListParking_Info) {
@@ -344,66 +455,119 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 snippetS = "Description : \n" + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
                                         "Duration : \n" + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
                                         "EndTime : \n" + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
-                                snippetS = snippetS.replace(" " ,"").trim();
-                                snippetS = snippetS.replace("\n\n","\n");
-                                snippetS = snippetS.replace("\n\n","\n");
-                                snippetS = snippetS.replace("\n\n","\n");
-                                snippetS = snippetS.replace("\n\n","\n");
+                                snippetS = snippetS.replace(" ", "").trim();
+                                snippetS = snippetS.replace("\n\n", "\n");
+                                snippetS = snippetS.replace("\n\n", "\n");
+                                snippetS = snippetS.replace("\n\n", "\n");
+                                snippetS = snippetS.replace("\n\n", "\n");
                                 snippetS = snippetS.trim();
                                 Mark.snippet(snippetS);
                             }
-                            if (infoFinded==1) {break;}
+                            if (infoFinded == 1) {
+                                break;
+                            }
                         }
-                        if (infoFinded == 0) {WID = 3;}
-                        if (WID==1) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));}
-                        if (WID==2) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));}
-                        if (WID==3) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));}
+//                        if (infoFinded == 0) {
+//                            WID = 3;
+//                        }
+                        if (WID == 1) {
+                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));
+                        }
+                        if (WID == 2) {
+                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));
+                        }
+//                        if (WID == 3) {
+//                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));
+//                        }
                         mMap.addMarker(Mark);
                     }
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error Durring Load Markers", Toast.LENGTH_SHORT).show();
         }
     }
 
 
     private void map_uno() {
-        try
-        {
-            if(!bv.isBoo()) {Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show(); return;}
+        try {
+            if (!bv.isBoo()) {
+                Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show();
+                return;
+            }
             mMap.clear();
             for (marker_Information info : ListParking_Info) {
-                if(info.bayid==null){info.bayid="";}
-                if(info.deviceid==null){info.deviceid="";}
-                if(info.description1==null){info.description1="";}
-                if(info.description2==null){info.description2="";}
-                if(info.description3==null){info.description3="";}
-                if(info.description4==null){info.description4="";}
-                if(info.duration1==null){info.duration1="";}
-                if(info.duration2==null){info.duration2="";}
-                if(info.duration3==null){info.duration3="";}
-                if(info.duration4==null){info.duration4="";}
-                if(info.endtime1==null){info.endtime1="";}
-                if(info.endtime2==null){info.endtime2="";}
-                if(info.endtime3==null){info.endtime3="";}
-                if(info.endtime4==null){info.endtime4="";}
+                if (info.bayid == null) {
+                    info.bayid = "";
+                }
+                if (info.deviceid == null) {
+                    info.deviceid = "";
+                }
+                if (info.description1 == null) {
+                    info.description1 = "";
+                }
+                if (info.description2 == null) {
+                    info.description2 = "";
+                }
+                if (info.description3 == null) {
+                    info.description3 = "";
+                }
+                if (info.description4 == null) {
+                    info.description4 = "";
+                }
+                if (info.duration1 == null) {
+                    info.duration1 = "";
+                }
+                if (info.duration2 == null) {
+                    info.duration2 = "";
+                }
+                if (info.duration3 == null) {
+                    info.duration3 = "";
+                }
+                if (info.duration4 == null) {
+                    info.duration4 = "";
+                }
+                if (info.endtime1 == null) {
+                    info.endtime1 = "";
+                }
+                if (info.endtime2 == null) {
+                    info.endtime2 = "";
+                }
+                if (info.endtime3 == null) {
+                    info.endtime3 = "";
+                }
+                if (info.endtime4 == null) {
+                    info.endtime4 = "";
+                }
             }
             int infoFinded = 0;
             for (marker_Parking park : ListParking) {
-                if (!park.status.trim().toLowerCase().equals("present"))
-                {
-                    if(park.bay_id==null){park.bay_id="";}
-                    if(park.status==null){park.status="";}
-                    if(park.lon==null){park.lon="";}
-                    if(park.lat==null){park.lat="";}
-                    if(park.st_marker_id==null){park.st_marker_id="";}
-                    if ((park.bay_id!="") && (park.lat!="") && (park.lon!=""))
-                    {
+                if (!park.status.trim().toLowerCase().equals("present")) {
+                    if (park.bay_id == null) {
+                        park.bay_id = "";
+                    }
+                    if (park.status == null) {
+                        park.status = "";
+                    }
+                    if (park.lon == null) {
+                        park.lon = "";
+                    }
+                    if (park.lat == null) {
+                        park.lat = "";
+                    }
+                    if (park.st_marker_id == null) {
+                        park.st_marker_id = "";
+                    }
+                    if ((park.bay_id != "") && (park.lat != "") && (park.lon != "")) {
                         MarkerOptions Mark = new MarkerOptions().position(new LatLng(Double.parseDouble(park.lat), Double.parseDouble(park.lon)));
                         int WID = 0;
-                        if (park.status.trim().toLowerCase().equals("present")) { WID = 1; } else { WID = 2; }
+                        if (park.status.trim().toLowerCase().equals("present")) {
+                            WID = 1;
+                        } else if (park.status.trim().toLowerCase().equals("unoccupied")){
+                            WID = 2;
+                        }else{
+                            WID = 3;
+                        }
                         infoFinded = 0;
                         Mark.title(park.status);
                         for (marker_Information info : ListParking_Info) {
@@ -413,26 +577,35 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 snippetS = "Description : \n" + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
                                         "Duration : \n" + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
                                         "EndTime : \n" + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
-                                snippetS = snippetS.replace(" " ,"").trim();
-                                snippetS = snippetS.replace("\n\n","\n");
-                                snippetS = snippetS.replace("\n\n","\n");
-                                snippetS = snippetS.replace("\n\n","\n");
-                                snippetS = snippetS.replace("\n\n","\n");
+                                snippetS = snippetS.replace(" ", "").trim();
+                                snippetS = snippetS.replace("\n\n", "\n");
+                                snippetS = snippetS.replace("\n\n", "\n");
+                                snippetS = snippetS.replace("\n\n", "\n");
+                                snippetS = snippetS.replace("\n\n", "\n");
                                 snippetS = snippetS.trim();
                                 Mark.snippet(snippetS);
                             }
-                            if (infoFinded==1) {break;}
+                            if (infoFinded == 1) {
+                                break;
+                            }
                         }
-                        if (infoFinded == 0) {WID = 3;}
-                        if (WID==1) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));}
-                        if (WID==2) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));}
-                        if (WID==3) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));}
+//                        if (infoFinded == 0) {
+//                            WID = 3;
+//                        }
+                        if (WID == 1) {
+                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));
+                        }
+                        if (WID == 2) {
+                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));
+                        }
+//                        if (WID == 3) {
+//                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));
+//                        }
                         mMap.addMarker(Mark);
                     }
                 }
             }
-        } catch (Exception e)
-        {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "Error Durring Load Markers", Toast.LENGTH_SHORT).show();
         }
     }
@@ -470,16 +643,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     l_Lng = lastlatlng.substring(ind_S, ind_E);
                                     llat = Double.parseDouble(l_Lat);
                                     llng = Double.parseDouble(l_Lng);
-                                    userSelect=1;
-                                    waitReady=false;
+                                    userSelect = 1;
+                                    waitReady = false;
                                 } else {
                                     Toast.makeText(getApplicationContext(), "Location Not Founded", Toast.LENGTH_SHORT).show();
-                                    userSelect=0;
+                                    userSelect = 0;
                                 }
                             } catch (IOException e) {
                                 Log.i("EMAS", "Error IO :");
                                 Log.i("EMAS", e.toString());
-                                userSelect=0;
+                                userSelect = 0;
                             }
                         }
                     });
@@ -487,30 +660,34 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 } catch (Exception e) {
                     Log.i("EMAS", "Error :");
                     Log.i("EMAS", e.toString());
-                    userSelect=0;
+                    userSelect = 0;
                 }
             } catch (Exception e) {
                 Log.i("EMAS", e.getMessage());
                 Toast.makeText(getApplicationContext(), "Error To Move Camera ...", Toast.LENGTH_SHORT).show();
-                userSelect=0;
+                userSelect = 0;
             }
             else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.i("EMAS", status.getStatusMessage());
-                userSelect=0;
+                userSelect = 0;
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(getApplicationContext(), "Searching Canceled ...", Toast.LENGTH_SHORT).show();
-                userSelect=0;
+                userSelect = 0;
             }
         }
     }
 
     private void showlstSel() {
-        userSelect=1;
+        userSelect = 1;
         waitReady = false;
         b_AutoFinder.setText("OFF");
         autoFinder = false;
-        if(llng==0){ llng=0; llat=0; return; }
+        if (llng == 0) {
+            llng = 0;
+            llat = 0;
+            return;
+        }
         boolean shnl = autoFinder;
         Location lctn = new Location("");
         lctn.setLatitude(llat);
@@ -595,15 +772,16 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
         locationManager.requestLocationUpdates(provider, 400, 1, this);
-        while (waitReady==true){
-            if(userSelect==0){return;}
+        while (waitReady == true) {
+            if (userSelect == 0) {
+                return;
+            }
         }
-        if(userSelect==1)
-        {
+        if (userSelect == 1) {
             userSelect = 0;
             showlstSel();
         }
-        Log.i ("EMAS", "Resume");
+        Log.i("EMAS", "Resume");
     }
 
     @Override
@@ -611,7 +789,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onPause();
         locationManager.removeUpdates(this);
 
-        Log.i ("EMAS", "Pause");
+        Log.i("EMAS", "Pause");
     }
 
 
@@ -635,7 +813,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     try {
                         jsonString[0] = network.getJsonString(Marker_Url);
                         Gson gson = new Gson();
-                        Type type = new TypeToken<List<marker_Parking>>(){}.getType();
+                        Type type = new TypeToken<List<marker_Parking>>() {
+                        }.getType();
                         ListParking = gson.fromJson(jsonString[0], type);
                         ////////////////////////////////////////////////////////////////////////////
                         try {
@@ -645,41 +824,43 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     try {
                                         jsonString2[0] = network.getJsonString(Marker_Url2);
                                         Gson gson2 = new Gson();
-                                        Type type2 = new TypeToken<List<marker_Information>>(){}.getType();
+                                        Type type2 = new TypeToken<List<marker_Information>>() {
+                                        }.getType();
                                         ListParking_Info = gson2.fromJson(jsonString2[0], type2);
                                         ////////////////////////////////////////////////////////////
                                         bv.setBoo(true);
                                         ////////////////////////////////////////////////////////////
                                     } catch (IOException e) {
-                                        Log.i ("EMAS", "Error IO2 :" );
-                                        Log.i ("EMAS", e.toString() );
+                                        Log.i("EMAS", "Error IO2 :");
+                                        Log.i("EMAS", e.toString());
                                     }
                                 }
                             });
                             thread2.start();
                         } catch (Exception e) {
-                            Log.i ("EMAS", "Error2 :" );
-                            Log.i ("EMAS", e.toString() );
+                            Log.i("EMAS", "Error2 :");
+                            Log.i("EMAS", e.toString());
                         }
                         ////////////////////////////////////////////////////////////////////////////
                     } catch (IOException e) {
-                        Log.i ("EMAS", "Error IO :" );
-                        Log.i ("EMAS", e.toString() );
+                        Log.i("EMAS", "Error IO :");
+                        Log.i("EMAS", e.toString());
                     }
                 }
             });
             thread.start();
         } catch (Exception e) {
-            Log.i ("EMAS", "Error :" );
-            Log.i ("EMAS", e.toString() );
+            Log.i("EMAS", "Error :");
+            Log.i("EMAS", e.toString());
         }
         ////////////////////////////////////////////////////////////////////////////////////////////
         LatLng Mark1LL;
-        if (srtup_loc!=null)
-        { Mark1LL = new LatLng(srtup_loc.getLatitude(), srtup_loc.getLongitude()); }
-        else
-        { Mark1LL = new LatLng(-37.804981, 144.992041); }
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Mark1LL,15));
+        if (srtup_loc != null) {
+            Mark1LL = new LatLng(srtup_loc.getLatitude(), srtup_loc.getLongitude());
+        } else {
+            Mark1LL = new LatLng(-37.804981, 144.992041);
+        }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Mark1LL, 15));
         MarkerInfoWindowAdapter markerInfoWindowAdapter = new MarkerInfoWindowAdapter(getApplicationContext());
         googleMap.setInfoWindowAdapter(markerInfoWindowAdapter);
     }
@@ -687,14 +868,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onLocationChanged(Location location) {
-        if (autoFinder==true)
-        {
+        if (autoFinder == true) {
             LatLng Mark1LL;
-            if (location!=null)
-            { Mark1LL = new LatLng(location.getLatitude(), location.getLongitude()); }
-            else
-            { Mark1LL = new LatLng(-37.804981, 144.992041); }
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Mark1LL,15));
+            if (location != null) {
+                Mark1LL = new LatLng(location.getLatitude(), location.getLongitude());
+            } else {
+                Mark1LL = new LatLng(-37.804981, 144.992041);
+            }
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Mark1LL, 15));
         }
     }
 

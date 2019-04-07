@@ -34,7 +34,7 @@
                 android:layout_width="46dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="Show Sel Location"
+                android:text="Show Pre Location"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="12sp"
@@ -42,7 +42,7 @@
                 android:typeface="normal"
                 tools:layout_editor_absoluteX="0dp"
                 tools:layout_editor_absoluteY="0dp"
-                tools:text="Show Sel Location" />
+                tools:text="Show Pre Location" />
             <Button
                 android:id="@+id/btn_Search"
                 style="@android:style/Widget.DeviceDefault.Button"
@@ -62,7 +62,7 @@
                 style="@android:style/Widget.DeviceDefault.Button"
                 android:layout_width="59dp"
                 android:layout_height="48dp"
-                android:text="CLT"
+                android:text="CL"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="12sp"
@@ -70,7 +70,8 @@
                 android:typeface="normal"
                 tools:layout_editor_absoluteX="189dp"
                 tools:layout_editor_absoluteY="63dp"
-                tools:text="CLT" />
+                tools:text="CL"
+                />
             <Button
                 android:id="@+id/btn_AutoLoc"
                 style="@android:style/Widget.DeviceDefault.Button"
@@ -140,12 +141,13 @@
                 tools:layout_editor_absoluteX="289dp"
                 tools:layout_editor_absoluteY="118dp"
                 tools:text="All" />
+
             <Button
                 android:id="@+id/b_peresent"
                 style="@android:style/Widget.DeviceDefault.Button"
                 android:layout_width="100dp"
                 android:layout_height="48dp"
-                android:text="Present"
+                android:text="Occupied"
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textSize="12sp"
@@ -153,7 +155,7 @@
                 android:typeface="normal"
                 tools:layout_editor_absoluteX="189dp"
                 tools:layout_editor_absoluteY="118dp"
-                tools:text="Present" />
+                tools:text="Occupied" />
             <Button
                 android:id="@+id/b_unoccupied"
                 style="@android:style/Widget.DeviceDefault.Button"
