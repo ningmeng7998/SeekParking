@@ -355,6 +355,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                    if (infoFound == 0) {
 //                        WID = 3;
 //                    }
+
                     if (WID==1) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));}
                     if (WID==2) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));}
                      //if (WID==3) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));}
