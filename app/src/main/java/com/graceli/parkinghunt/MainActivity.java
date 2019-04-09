@@ -89,16 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static String Marker_Url2 = "http://data.melbourne.vic.gov.au/resource/ntht-5rk7.json";
 
     boolean autoFinder = false;
-    private Button b_CurentLoc;
-    private Button b_AutoFinder;
-    private Button b_About;
     private Button b_Search;
-    private Button b_Show;
-
-    private Button bt_Clear;
-    private Button bt_All;
-    private Button bt_Per;
-    private Button bt_Uno;
 
     private LocationManager locationManager;
     private String provider;
@@ -120,25 +111,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        dataReadytoShow = false;
-        autoFinder = false;
-        gps_ON = false;
-        b_AutoFinder = (Button) findViewById(R.id.btn_AutoLoc);
-        b_CurentLoc = (Button) findViewById(R.id.btn_AutoLoc2);
-        b_About = (Button) findViewById(R.id.btn_About);
         b_Search = (Button) findViewById(R.id.btn_Search);
-        b_Show = (Button) findViewById(R.id.btn_show);
-
-        bt_Clear = (Button) findViewById(R.id.b_clear);
-        bt_All = (Button) findViewById(R.id.b_all);
-        bt_Per = (Button) findViewById(R.id.b_peresent);
-        bt_Uno = (Button) findViewById(R.id.b_unoccupied);
-
-        b_CurentLoc.setVisibility(View.GONE);
-        b_Show.setVisibility(View.GONE);
-        b_About.setVisibility(View.GONE);
-       // bt_Clear.setVisibility(View.GONE);
-
 
         Places.initialize(getApplicationContext(), "AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg");
         PlacesClient placesClient = Places.createClient(this);
@@ -178,61 +151,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         srtup_loc = location;
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.g_map);
         mapFragment.getMapAsync(this);
-        b_About.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                aboutFormShow();
-            }
-        });
-        b_AutoFinder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                autoFinderLocation();
-            }
-        });
-        b_CurentLoc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentLocation();
 
-            }
-        });
         b_Search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 searchForm();
-            }
-        });
-        b_Show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showlstSel();
-            }
-        });
-        bt_Clear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                map_Clear();
-            }
-        });
-        bt_All.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                map_All();
-            }
-        });
-        bt_Per.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                map_pre();
-            }
-        });
-        bt_Uno.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
                 map_uno();
             }
         });
+
         bv.setBoo(false);
         bv.setListener(new BooVariable.ChangeListener() {
             @Override
@@ -247,246 +174,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
         mMap.clear();
-    }
-
-
-    private void map_All() {
-        try {
-            if (!bv.isBoo()) {
-                Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            mMap.clear();
-            for (marker_Information info : ListParking_Info) {
-                if (info.bayid == null) {
-                    info.bayid = "";
-                }
-                if (info.deviceid == null) {
-                    info.deviceid = "";
-                }
-                if (info.description1 == null) {
-                    info.description1 = "";
-                }
-                if (info.description2 == null) {
-                    info.description2 = "";
-                }
-                if (info.description3 == null) {
-                    info.description3 = "";
-                }
-                if (info.description4 == null) {
-                    info.description4 = "";
-                }
-                if (info.duration1 == null) {
-                    info.duration1 = "";
-                }
-                if (info.duration2 == null) {
-                    info.duration2 = "";
-                }
-                if (info.duration3 == null) {
-                    info.duration3 = "";
-                }
-                if (info.duration4 == null) {
-                    info.duration4 = "";
-                }
-                if (info.endtime1 == null) {
-                    info.endtime1 = "";
-                }
-                if (info.endtime2 == null) {
-                    info.endtime2 = "";
-                }
-                if (info.endtime3 == null) {
-                    info.endtime3 = "";
-                }
-                if (info.endtime4 == null) {
-                    info.endtime4 = "";
-                }
-            }
-
-
-            int infoFound = 0;
-            for (marker_Parking park : ListParking) {
-                if (park.bay_id == null) {
-                    park.bay_id = "";
-                }
-                if (park.status == null) {
-                    park.status = "";
-                }
-                if (park.lon == null) {
-                    park.lon = "";
-                }
-                if (park.lat == null) {
-                    park.lat = "";
-                }
-                if (park.st_marker_id == null) {
-                    park.st_marker_id = "";
-                }
-                if ((park.bay_id != "") && (park.lat != "") && (park.lon != "")) {
-                    MarkerOptions Mark = new MarkerOptions().position(new LatLng(Double.parseDouble(park.lat), Double.parseDouble(park.lon)));
-                    int WID = 0;
-                    if (park.status.trim().toLowerCase().equals("present")) {
-                        WID = 1;
-                    } else if (park.status.trim().toLowerCase().equals("unoccupied")){
-                        WID = 2;
-                    }else{
-                        WID = 3;
-                    }
-
-                    infoFound = 0;
-                    Mark.title(park.status);
-                    for (marker_Information info : ListParking_Info) {
-                        if (info.bayid.trim().toLowerCase().equals(park.bay_id.trim().toLowerCase())) {
-                            infoFound = 1;
-                            String snippetS = "";
-                            snippetS = "Description : \n" + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
-                                    "Duration : \n" + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
-                                    "EndTime : \n" + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
-                            snippetS = snippetS.replace(" ", "").trim();
-                            snippetS = snippetS.replace("\n\n", "\n");
-                            snippetS = snippetS.replace("\n\n", "\n");
-                            snippetS = snippetS.replace("\n\n", "\n");
-                            snippetS = snippetS.replace("\n\n", "\n");
-                            snippetS = snippetS.trim();
-                            Mark.snippet(snippetS);
-                        }
-                        if (infoFound == 1) {
-                            break;
-                        }
-                    }
-//                    if (infoFound == 0) {
-//                        WID = 3;
-//                    }
-
-                    if (WID==1) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));}
-                    if (WID==2) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));}
-                     //if (WID==3) {Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));}
-                    mMap.addMarker(Mark);
-                }
-            }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error Durring Load Markers", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-
-    private void map_pre() {
-        try {
-            if (!bv.isBoo()) {
-                Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            mMap.clear();
-            for (marker_Information info : ListParking_Info) {
-                if (info.bayid == null) {
-                    info.bayid = "";
-                }
-                if (info.deviceid == null) {
-                    info.deviceid = "";
-                }
-                if (info.description1 == null) {
-                    info.description1 = "";
-                }
-                if (info.description2 == null) {
-                    info.description2 = "";
-                }
-                if (info.description3 == null) {
-                    info.description3 = "";
-                }
-                if (info.description4 == null) {
-                    info.description4 = "";
-                }
-                if (info.duration1 == null) {
-                    info.duration1 = "";
-                }
-                if (info.duration2 == null) {
-                    info.duration2 = "";
-                }
-                if (info.duration3 == null) {
-                    info.duration3 = "";
-                }
-                if (info.duration4 == null) {
-                    info.duration4 = "";
-                }
-                if (info.endtime1 == null) {
-                    info.endtime1 = "";
-                }
-                if (info.endtime2 == null) {
-                    info.endtime2 = "";
-                }
-                if (info.endtime3 == null) {
-                    info.endtime3 = "";
-                }
-                if (info.endtime4 == null) {
-                    info.endtime4 = "";
-                }
-            }
-            int infoFinded = 0;
-            for (marker_Parking park : ListParking) {
-                if (park.status.trim().toLowerCase().equals("present")) {
-                    if (park.bay_id == null) {
-                        park.bay_id = "";
-                    }
-                    if (park.status == null) {
-                        park.status = "";
-                    }
-                    if (park.lon == null) {
-                        park.lon = "";
-                    }
-                    if (park.lat == null) {
-                        park.lat = "";
-                    }
-                    if (park.st_marker_id == null) {
-                        park.st_marker_id = "";
-                    }
-                    if ((park.bay_id != "") && (park.lat != "") && (park.lon != "")) {
-                        MarkerOptions Mark = new MarkerOptions().position(new LatLng(Double.parseDouble(park.lat), Double.parseDouble(park.lon)));
-                        int WID = 0;
-                        if (park.status.trim().toLowerCase().equals("present")) {
-                            WID = 1;
-                        } else if (park.status.trim().toLowerCase().equals("unoccupied")){
-                            WID = 2;
-                        }else{
-                            WID = 3;
-                        }
-                        infoFinded = 0;
-                        Mark.title(park.status);
-                        for (marker_Information info : ListParking_Info) {
-                            if (info.bayid.trim().toLowerCase().equals(park.bay_id.trim().toLowerCase())) {
-                                infoFinded = 1;
-                                String snippetS = "";
-                                snippetS = "Description : \n" + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
-                                        "Duration : \n" + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
-                                        "EndTime : \n" + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
-                                snippetS = snippetS.replace(" ", "").trim();
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.trim();
-                                Mark.snippet(snippetS);
-                            }
-                            if (infoFinded == 1) {
-                                break;
-                            }
-                        }
-//                        if (infoFinded == 0) {
-//                            WID = 3;
-//                        }
-                        if (WID == 1) {
-                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));
-                        }
-                        if (WID == 2) {
-                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));
-                        }
-//                        if (WID == 3) {
-//                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));
-//                        }
-                        mMap.addMarker(Mark);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "Error Durring Load Markers", Toast.LENGTH_SHORT).show();
-        }
     }
 
 
@@ -571,13 +258,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                         infoFinded = 0;
                         Mark.title(park.status);
+                        //Mark.title("Parking Restrictions");
                         for (marker_Information info : ListParking_Info) {
                             if (info.bayid.trim().toLowerCase().equals(park.bay_id.trim().toLowerCase())) {
                                 infoFinded = 1;
                                 String snippetS = "";
-                                snippetS = "Description : \n" + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
-                                        "Duration : \n" + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
-                                        "EndTime : \n" + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
+                                snippetS = "Restrictions: " + info.description1.trim() + "\n" + info.description2.trim() + "\n" + info.description3.trim() + "\n" + info.description4.trim() + "\n" +
+                                        "Duration : " + info.duration1.trim() + "\n" + info.duration2.trim() + "\n" + info.duration3.trim() + "\n" + info.duration4.trim() + "\n" +
+                                        "EndTime : " + info.endtime1.trim() + "\n" + info.endtime2.trim() + "\n" + info.endtime3.trim() + "\n" + info.endtime4.trim();
                                 snippetS = snippetS.replace(" ", "").trim();
                                 snippetS = snippetS.replace("\n\n", "\n");
                                 snippetS = snippetS.replace("\n\n", "\n");
@@ -597,7 +285,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfre));
                         }
                         if (WID == 2) {
-                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pfull));
+                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.p_marker));
                         }
 //                        if (WID == 3) {
 //                            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.pnave));
@@ -682,7 +370,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void showlstSel() {
         userSelect = 1;
         waitReady = false;
-        b_AutoFinder.setText("OFF");
+       // b_AutoFinder.setText("OFF");
         autoFinder = false;
         if (llng == 0) {
             llng = 0;
@@ -701,7 +389,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private void searchForm() {
         llat = 0;
         llng = 0;
-        b_AutoFinder.setText("OFF");
+      //  b_AutoFinder.setText("OFF");
         autoFinder = false;
         userSelect = 1;
         waitReady = true;
@@ -717,10 +405,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private void autoFinderLocation() {
         if (autoFinder == false) {
-            b_AutoFinder.setText("ON");
+          //  b_AutoFinder.setText("ON");
             autoFinder = true;
         } else {
-            b_AutoFinder.setText("OFF");
+           // b_AutoFinder.setText("OFF");
             autoFinder = false;
         }
     }
@@ -805,6 +493,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
         mMap.setMyLocationEnabled(true);
+        map_uno();
         final Network network = new Network();
         ////////////////////////////////////////////////////////////////////////////////////////////
         try {
@@ -876,7 +565,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             } else {
                 Mark1LL = new LatLng(-37.804981, 144.992041);
             }
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Mark1LL, 15));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Mark1LL, 18));
         }
     }
 

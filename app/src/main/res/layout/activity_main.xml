@@ -7,15 +7,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/linearBase"
-        android:layout_width="match_parent"
-        android:layout_height="96dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:orientation="vertical"
-        tools:context=".MainActivity"
-        android:layout_marginTop="-100dp">
+
 
 
         <LinearLayout
@@ -28,25 +20,25 @@
             tools:context=".MainActivity"
             tools:layout_editor_absoluteX="0dp"
             tools:layout_editor_absoluteY="0dp">
-            <Button
-                android:id="@+id/btn_show"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="46dp"
-                android:layout_height="48dp"
-                android:layout_weight="1"
-                android:text="Show Pre Location"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="0dp"
-                tools:layout_editor_absoluteY="0dp"
-                tools:text="Show Pre Location" />
+            <!--<Button-->
+                <!--android:id="@+id/btn_show"-->
+                <!--style="@android:style/Widget.DeviceDefault.Button"-->
+                <!--android:layout_width="46dp"-->
+                <!--android:layout_height="48dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:text="Show Pre Location"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textAppearance="@style/TextAppearance.AppCompat.Body1"-->
+                <!--android:textSize="12sp"-->
+                <!--android:textStyle="bold"-->
+                <!--android:typeface="normal"-->
+                <!--tools:layout_editor_absoluteX="0dp"-->
+                <!--tools:layout_editor_absoluteY="0dp"-->
+                <!--tools:text="Show Pre Location" />-->
             <Button
                 android:id="@+id/btn_Search"
                 style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="90dp"
+                android:layout_width="300dp"
                 android:layout_height="48dp"
                 android:text="Search..."
                 android:textAlignment="center"
@@ -57,127 +49,14 @@
                 tools:layout_editor_absoluteX="189dp"
                 tools:layout_editor_absoluteY="63dp"
                 tools:text="Search..." />
-            <Button
-                android:id="@+id/btn_AutoLoc2"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="59dp"
-                android:layout_height="48dp"
-                android:text="CL"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="63dp"
-                tools:text="CL"
-                />
-            <Button
-                android:id="@+id/btn_AutoLoc"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="59dp"
-                android:layout_height="48dp"
-                android:text="OFF"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="289dp"
-                tools:layout_editor_absoluteY="118dp"
-                tools:text="OFF" />
-            <Button
-                android:id="@+id/btn_About"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="64dp"
-                android:layout_height="48dp"
-                android:text="About"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="118dp"
-                tools:text="About" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutMarker"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="0dp"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:orientation="horizontal"
-            tools:context=".MainActivity"
-            tools:layout_editor_absoluteX="0dp"
-            tools:layout_editor_absoluteY="0dp">
-            <Button
-                android:id="@+id/b_clear"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="59dp"
-                android:layout_height="48dp"
-                android:text="Clear"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="63dp"
-                tools:text="Clear" />
-            <Button
-                android:id="@+id/b_all"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="59dp"
-                android:layout_height="48dp"
-                android:text="All"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="289dp"
-                tools:layout_editor_absoluteY="118dp"
-                tools:text="All" />
 
-            <Button
-                android:id="@+id/b_peresent"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="100dp"
-                android:layout_height="48dp"
-                android:text="Occupied"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="118dp"
-                tools:text="Occupied" />
-            <Button
-                android:id="@+id/b_unoccupied"
-                style="@android:style/Widget.DeviceDefault.Button"
-                android:layout_width="100dp"
-                android:layout_height="48dp"
-                android:text="Unoccupied"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:typeface="normal"
-                tools:layout_editor_absoluteX="189dp"
-                tools:layout_editor_absoluteY="118dp"
-                tools:text="Unoccupied" />
-        </LinearLayout>
-
-    </LinearLayout>
 
     <fragment
         android:id="@+id/g_map"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="48dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
