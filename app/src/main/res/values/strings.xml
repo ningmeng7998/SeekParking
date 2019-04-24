@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">ParkingHunt</string>
-    <string name="title_activity_about_f">About Developer</string>
+    <string name="title_activity_about_f">About ParkingHunt</string>
+    <string name="title_activity_helpph_f">User Help</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Parkinghunt Notification</string>
+    <string name="title_notifications">ParkingHunt Notification</string>
+    <string name="title_activity_UG">User Guide</string>
+    <string name="title_activity_CC">Parking Timer</string>
+    <string name="title_activity_CD">Timer Reminder</string>
 </resources>

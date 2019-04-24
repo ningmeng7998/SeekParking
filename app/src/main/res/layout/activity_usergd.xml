@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".UserGuide">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/m_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        tools:context=".UserGuide">
+        <ImageButton
+            android:id="@+id/m_t_backug"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="start"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:src="@drawable/baseline_arrow_back_black_18dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_activity_UG"
+            android:textColor="@color/quantum_white_text"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="48dp"
+        android:background="@color/BackGroundPage">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Next Version ..."
+            android:textColor="@color/quantum_white_text"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

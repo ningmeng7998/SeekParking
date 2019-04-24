@@ -3,6 +3,7 @@ package com.graceli.parkinghunt;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
@@ -25,9 +26,7 @@ public class MarkerInfoWindowAdapter implements GoogleMap.InfoWindowAdapter {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View v =  inflater.inflate(R.layout.activity_marker_info_window_adapter, null);
         TextView spt = (TextView) v.findViewById(R.id.sp_title);
-        TextView sps = (TextView) v.findViewById(R.id.sp_snippet);
-        spt.setText("Status : " + arg0.getTitle());
-        sps.setText(arg0.getSnippet());
+        spt.setText(arg0.getTitle());
         return v;
     }
 }

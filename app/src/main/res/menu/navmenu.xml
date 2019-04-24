@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Menu">
+        <menu>
+            <item
+                android:title="About Parking hunt"
+                android:icon="@drawable/help"
+                android:id="@+id/m_about" />
+            <item
+                android:title="Help"
+                android:icon="@drawable/contactus"
+                android:id="@+id/m_help" />
+            <item
+                android:title="User Guide"
+                android:icon="@drawable/userg"
+                android:id="@+id/m_Userquide" />
+        </menu>
+    </item>
+    <item android:title="Other">
+        <menu>
+            <item
+                android:title="Exit"
+                android:icon="@drawable/logout"
+                android:id="@+id/m_exit" />
+        </menu>
+    </item>
+</menu>

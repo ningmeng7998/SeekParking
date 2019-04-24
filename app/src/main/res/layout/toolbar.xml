@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/m_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        tools:context=".MainActivity">
+
+        <ImageButton
+            android:id="@+id/m_t_Menu"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="start"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:src="@drawable/menulist"/>
+
+        <fragment android:id="@+id/autocomplete_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_weight="1"
+            />
+
+        <ImageButton
+            android:id="@+id/m_t_Filter"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:src="@drawable/filter" />
+
+
+    </android.support.v7.widget.Toolbar>
+
+</android.support.constraint.ConstraintLayout>

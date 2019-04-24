@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".About">
+    tools:context=".HelpPage">
+
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/m_toolbar"
@@ -14,7 +15,7 @@
         android:orientation="horizontal"
         tools:context=".HelpPage">
         <ImageButton
-            android:id="@+id/m_t_backa"
+            android:id="@+id/m_t_backh"
             android:layout_width="28dp"
             android:layout_height="28dp"
             android:layout_gravity="start"
@@ -25,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/title_activity_about_f"
+            android:text="@string/title_activity_helpph_f"
             android:textColor="@color/quantum_white_text"
             android:textSize="20sp"
             android:textStyle="bold"/>
@@ -43,43 +44,16 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/logo"
-                android:layout_marginTop="30dp"/>
-
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
                 android:layout_marginTop="30dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="What is Parking Hunt ?"
+                android:gravity="center"
+                android:text="Features and Benefits"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <me.biubiubiu.justifytext.library.JustifyTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="Parking Hunt is a parking solution which gives you the ability to Search, Navigate and Set Reminder, all with a single touch of the button. It is made to ease your parking experience.\n"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="16sp"
-                android:textStyle="normal" />
 
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="400dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="30dp"
-                android:src="@drawable/smartparking" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -88,7 +62,7 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="Copy rights and Licences"
+                android:text="1. Search :"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -99,7 +73,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="The services provided by this app use certain third party data, including such that are licensed by The City of Melbourne.\n"
+                android:text="This function allows the users to search for the preferred destination such as Collin Street, Flinders Street etc.\n"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -111,21 +85,10 @@
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="Limitation of Liability"
+                android:text="2. Markers :"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="We do not hold liability for :"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="16sp"
-                android:textStyle="normal" />
             <me.biubiubiu.justifytext.library.JustifyTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,11 +96,80 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="- any inaccuracies or changes to the Parking Hunt Services including the location, availability, or terms and conditions that apply to any parking service.\n- any interruptions or delays to access the app caused by any act or default of the  third party.\n- any direct, indirect, or sequential damage incurred by you or the third party in relation to the Parking Hunt services.\n"
+                android:text="These markers represent the vacant parking spaces which are currently available for parking. The users can click on these markers to view further information on these parking spaces.\n"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="3. Refresh :"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="The refresh button present in the below navigation bars refreshes parking data in every 2 minutes and provides new updated data.\n"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="4. Processing :"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="The processing symbol represent that the information in the pages in getting processed and the users are requested to have patience before the page fully updated.\n"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="5. Google Navigation :"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="start"
+                android:text="The users can click on the vacant parking space and then click on the google navigation which would redirect the users to Google maps helping to navigate to the exact parking location.\n"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="16sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
     </ScrollView>

@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.graceli.parkinghunt">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,19 +18,41 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".aboutF"
-            android:label="@string/title_activity_about_f"
+            android:name=".CounterDown"
+            android:label="Parking Time"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MarkerInfoWindowAdapter" />
         <activity
-            android:name=".splash"
+            android:name=".CounterConfig"
+            android:label="Parking Time"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".About"
+            android:label="About Software"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".HelpPage"
+            android:label="Help"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".UserGuide"
+            android:label="User guide"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg" />
     </application>
+
 </manifest>

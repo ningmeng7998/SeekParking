@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CounterConfig">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/m_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary"
+        android:orientation="horizontal"
+        tools:context=".CounterConfig">
+        <ImageButton
+            android:id="@+id/m_t_backcc"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="start"
+            android:background="@color/colorPrimary"
+            android:textColor="#ffffff"
+            android:src="@drawable/baseline_arrow_back_black_18dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/title_activity_CC"
+            android:textColor="@color/quantum_white_text"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
+    </android.support.v7.widget.Toolbar>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="48dp"
+        android:background="@color/BackGroundPage">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="Hints :"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="- Please pay attention to the maximum allowed time.\n- Please specify a parking time ending notice.\n- If you wish, set your usage time manually.\n- After the timer set, press the start button.\n- For return press back button\n"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="15sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/txt_maxtime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="Maximum Time : None (Min)"
+                android:textColor="@color/quantum_vanillablue300"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Hour"
+                    android:textStyle="bold"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_hour_P"
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/rounded_edge"
+                        android:text="+"
+                        android:textColor="@color/quantum_white_text"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_hour"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="00"
+                        android:textSize="70sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btn_hour_M"
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/rounded_edge"
+                        android:text="-"
+                        android:textColor="@color/quantum_white_text"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text=":"
+                    android:textStyle="bold"
+                    android:textSize="70sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/btn_min_P"
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/rounded_edge"
+                        android:text="+"
+                        android:textColor="@color/quantum_white_text"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:text="00"
+                        android:textSize="70sp"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/btn_min_M"
+                        android:layout_width="80dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/rounded_edge"
+                        android:text="-"
+                        android:textColor="@color/quantum_white_text"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="Min "
+                    android:textStyle="bold"
+                    android:textSize="20dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_Start"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_edge"
+                    android:text="Start Parking Timer"
+                    android:textAllCaps="false"
+                    android:textColor="@color/quantum_white_text"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="start"
+                    android:text="Notification Manager :"
+                    android:textColor="@color/quantum_white_text"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:id="@+id/group_RB"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_5min"
+                        style="@android:style/Widget.Holo.Light.CompoundButton.RadioButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="5min"
+                        android:textColor="@color/quantum_white_text"
+                        app:layout_anchor="@+id/group_RB" />
+
+                    <RadioButton
+                        android:id="@+id/rb_10min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="10min"
+                        android:textColor="@color/quantum_white_text"
+                        app:layout_anchor="@+id/group_RB" />
+
+                    <RadioButton
+                        android:id="@+id/rb_15min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="15min"
+                        android:textColor="@color/quantum_white_text"
+                        app:layout_anchor="@+id/group_RB" />
+
+                    <RadioButton
+                        android:id="@+id/rb_30min"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="30min"
+                        android:textColor="@color/quantum_white_text"
+                        app:layout_anchor="@+id/group_RB" />
+                </RadioGroup>
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
