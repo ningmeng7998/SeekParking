@@ -44,129 +44,153 @@
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/search"
+                android:layout_marginTop="10dp"
+                android:contentDescription="search icon"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:text="Features and Benefits"
+                android:text="Search"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="1. Search :"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <me.biubiubiu.justifytext.library.JustifyTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="This function allows the users to search for the preferred destination such as Collin Street, Flinders Street etc.\n"
+                android:gravity="center"
+                android:text="@string/search_feature_content"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
-            <TextView
-                android:layout_width="match_parent"
+            <ImageView
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="2. Markers :"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <me.biubiubiu.justifytext.library.JustifyTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_gravity="center"
+                android:src="@drawable/navigation"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="These markers represent the vacant parking spaces which are currently available for parking. The users can click on these markers to view further information on these parking spaces.\n"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="16sp"
-                android:textStyle="normal" />
+                android:contentDescription="navigation icon"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="3. Refresh :"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Navigation"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <me.biubiubiu.justifytext.library.JustifyTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="The refresh button present in the below navigation bars refreshes parking data in every 2 minutes and provides new updated data.\n"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="16sp"
-                android:textStyle="normal" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="4. Processing :"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-            <me.biubiubiu.justifytext.library.JustifyTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="The processing symbol represent that the information in the pages in getting processed and the users are requested to have patience before the page fully updated.\n"
+                android:gravity="center"
+                android:text="@string/navigation_feature_content"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />
 
+
+            <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/funnel"
+            android:layout_marginTop="10dp"
+            android:contentDescription="filter icon"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="5. Google Navigation :"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Filter"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-            <me.biubiubiu.justifytext.library.JustifyTextView
+
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="5dp"
-                android:gravity="start"
-                android:text="The users can click on the vacant parking space and then click on the google navigation which would redirect the users to Google maps helping to navigate to the exact parking location.\n"
+                android:gravity="center"
+                android:text="@string/filter_feature_content"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/clock"
+                android:layout_marginTop="10dp"
+                android:contentDescription="Timer icon"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Timer"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="@string/timer_feature_content"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/refresh_icon"
+                android:layout_marginTop="10dp"
+                android:contentDescription="Refresh icon"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="Refresh"
+                android:textColor="@color/quantum_white_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+ n
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="center"
+                android:text="@string/refresh_feature_content"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />

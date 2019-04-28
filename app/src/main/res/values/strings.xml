@@ -1,11 +1,22 @@
 <resources>
     <string name="app_name">ParkingHunt</string>
     <string name="title_activity_about_f">About ParkingHunt</string>
-    <string name="title_activity_helpph_f">User Help</string>
+    <string name="title_activity_helpph_f">Parking Hunt Features</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">ParkingHunt Notification</string>
     <string name="title_activity_UG">User Guide</string>
     <string name="title_activity_CC">Parking Timer</string>
     <string name="title_activity_CD">Timer Reminder</string>
+    <string name="channel_name">default_channel</string>
+    <string name="channel_description">This is default channel</string>
+    <string name="item_help">Features</string>
+    <string name="item_title">About Parking Hunt</string>
+    <string name="timer_content">- Please pay attention to the maximum allowed time.\n- Please specify a parking time ending notice.\n- If you wish, set your usage time manually.\n- After the timer set, press the start button.\n- For return press back button\n</string>
+    <string name="search_feature_content">(Please note that this function is current restricted to Australia only.) Display all possible on-street and off-street parking bays within a certain radius from your intended destination in Melbourne CBD region. </string>
+    <string name="navigation_feature_content">We utilise Google platform to augment your driving experience by providing turn-by-turn navigation.</string>
+    <string name="filter_feature_content">Actively look for parking bays that suit your demand for duration of stay by filtering out all other irrelevant parking signs.</string>
+    <string name="timer_feature_content">Avoid violation of time limit by setting a timer to move your vehicle from the parking side.</string>
+    <string name="refresh_feature_content">Get up-to-date information of vacancy in real-time to support your hunt for a parking space.</string>
+
 </resources>

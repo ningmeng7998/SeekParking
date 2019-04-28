@@ -350,10 +350,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Intent GoActivity2 = new Intent(MainActivity.this, HelpPage.class);
                     startActivity(GoActivity2);
                     break;
-                case R.id.m_Userquide:
-                    Intent GoActivity3 = new Intent(MainActivity.this, UserGuide.class);
-                    startActivity(GoActivity3);
-                    break;
+//                case R.id.m_Userguide:
+//                    Intent GoActivity3 = new Intent(MainActivity.this, UserGuide.class);
+//                    startActivity(GoActivity3);
+//                    break;
                 case R.id.m_exit:
                     finish();
                     break;
@@ -836,7 +836,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 case 7:{ p1rv_dur.setText("120"); }
                             }
                             lstdur = 0;
-                            p1rv_desc.setText("  Mon - Sun");
+                            p1rv_desc.setText(" Mon-Sun 8:00am-6:00pm");
                             p1rv.setVisibility(View.VISIBLE);
                             p2rv.setVisibility(View.GONE);
                             p3rv.setVisibility(View.GONE);
@@ -854,7 +854,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 case 7:{ p1rv_dur.setText("120"); }
                             }
                             lstdur = 0;
-                            p1rv_desc.setText("  Mon - Sun");
+                            p1rv_desc.setText(" Mon-Sun 8:00am-6:00pm");
                             p1rv.setVisibility(View.VISIBLE);
                             p2rv.setVisibility(View.GONE);
                             p3rv.setVisibility(View.GONE);

@@ -2,6 +2,7 @@ package com.graceli.parkinghunt;
 
 
 import android.app.AlertDialog;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
@@ -64,11 +66,14 @@ public class CounterDown extends AppCompatActivity {
 
 
     private static final int notifyid = 1;
+    public static String CHANNEL_ID = "default_channel";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_counter_down);
+        createNotificationChannel();
         Intent senderIntent=getIntent();
         Time_Str_ParkMax = senderIntent.getStringExtra("TimeMin");
         Park_BayNo = senderIntent.getStringExtra("bayNo");
@@ -156,9 +161,27 @@ public class CounterDown extends AppCompatActivity {
 
     }
 
+
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
+
+
     private void ShowNoti(String txt_Title,String txt_Body,int Noti_ID){
         try{
-            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this)
+            NotificationCompat.Builder mBuilder =   new NotificationCompat.Builder(this,CHANNEL_ID)
                     .setSmallIcon(android.R.drawable.ic_dialog_info) // notification icon
                     .setContentTitle(txt_Title.trim()) // title for notification
                     .setContentText(txt_Body.trim()) // message for notification
@@ -198,7 +221,7 @@ public class CounterDown extends AppCompatActivity {
                         lyTC.setBackgroundColor(Color.parseColor("#FF8A65"));
                         noti_1=1;
                         noti_2=0;
-                        ShowNoti("Parking Hunt","Please pay attention to your parking time\nTime remind : " + String.valueOf(NotiTimeMin_int) + " Min",1);
+                        ShowNoti("Parking Hunt","Parking Time remaining : " + String.valueOf(NotiTimeMin_int) + " Min",1);
                     }
                 }
             }

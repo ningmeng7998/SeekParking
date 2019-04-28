@@ -62,7 +62,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="- Please pay attention to the maximum allowed time.\n- Please specify a parking time ending notice.\n- If you wish, set your usage time manually.\n- After the timer set, press the start button.\n- For return press back button\n"
+                android:text="@string/timer_content"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="15sp"
                 android:textStyle="normal" />
@@ -199,7 +199,7 @@
                     android:id="@+id/btn_Start"
                     android:layout_width="210dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/rounded_edge"
+                    android:background="@drawable/rounded_edge5"
                     android:text="Start Parking Timer"
                     android:textAllCaps="false"
                     android:textColor="@color/quantum_white_text"
