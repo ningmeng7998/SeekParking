@@ -26,8 +26,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="48dp"
-        android:background="@color/quantum_bluegrey100">
+        android:layout_marginTop="48dp">
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -39,7 +38,7 @@
                 android:layout_height="120dp"
                 android:layout_marginTop="30dp"
                 android:gravity="center"
-                android:background="@color/BackGroundPage"
+                android:background="@color/colorPrimary"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/txt_Hour"
@@ -206,17 +205,17 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/txt_PS_bay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="30dp"
-                android:gravity="start"
-                android:text="Parking Spot :  ( ID : 9615 )"
-                android:textColor="@color/quantum_bluegrey900"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            <!--<TextView-->
+                <!--android:id="@+id/txt_PS_bay"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginTop="30dp"-->
+                <!--android:gravity="start"-->
+                <!--android:text="Parking Spot :  ( ID : 9615 )"-->
+                <!--android:textColor="@color/quantum_bluegrey900"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textStyle="bold" />-->
 
             <me.biubiubiu.justifytext.library.JustifyTextView
                 android:id="@+id/txt_Address"
@@ -232,7 +231,8 @@
                 android:textStyle="normal" />
 
 
-            <LinearLayout
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_marginTop="20dp"
@@ -248,10 +248,21 @@
                     android:layout_height="40dp"
                     android:background="@drawable/rounded_edge5"
                     android:text="Stop Parking Timer"
-                    android:textAlignment="center"
+                    android:layout_alignParentStart="true"
                     android:textAllCaps="false"
                     android:textColor="@color/quantum_white_text" />
-            </LinearLayout>
+                <Button
+                    android:id="@+id/btn_find_car"
+                    android:layout_width="130dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/rounded_edge4"
+                    android:text="Find my car"
+                    android:textAlignment="center"
+                    android:textColor="@color/quantum_white_text"
+                    android:layout_alignParentEnd="true"
+                    android:textAllCaps="false"/>
+            </RelativeLayout>
+
 
 
 

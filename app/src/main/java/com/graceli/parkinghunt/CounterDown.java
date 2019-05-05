@@ -10,6 +10,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,6 +32,8 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class CounterDown extends AppCompatActivity {
 
@@ -45,7 +49,7 @@ public class CounterDown extends AppCompatActivity {
     TextView txt_End_Parking_Time;
     TextView txt_Notification_Time;
     TextView txt_Timeout_Notification;
-    TextView txt_Parking_Spot_BayID;
+    //TextView txt_Parking_Spot_BayID;
     TextView txt_Address;
 
     TextView txt_Timer_Hour;
@@ -64,14 +68,15 @@ public class CounterDown extends AppCompatActivity {
     LinearLayout lyTC;
     CountDownTimer cTimer = null;
 
-
+    private Button btn_findCar;
     private static final int notifyid = 1;
     public static String CHANNEL_ID = "default_channel";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        final Geocoder geocoder =new Geocoder(getApplicationContext(), Locale.getDefault());
         setContentView(R.layout.activity_counter_down);
         createNotificationChannel();
         Intent senderIntent=getIntent();
@@ -86,14 +91,16 @@ public class CounterDown extends AppCompatActivity {
         txt_End_Parking_Time = findViewById(R.id.txt_EPT);
         txt_Notification_Time = findViewById(R.id.txt_NT);
         txt_Timeout_Notification = findViewById(R.id.txt_TOUTN);
-        txt_Parking_Spot_BayID = findViewById(R.id.txt_PS_bay);
+        // = findViewById(R.id.txt_PS_bay);
         txt_Address = findViewById(R.id.txt_Address);
         txt_Timer_Hour = findViewById(R.id.txt_Hour);
         txt_Timer_Min = findViewById(R.id.txt_Min);
         txt_Timer_Sec = findViewById(R.id.txt_Sec);
         lyTC = findViewById(R.id.ly_TimerColor);
+        btn_findCar = findViewById(R.id.btn_find_car);
         btn_Cancel = findViewById(R.id.btn_Cancel);
         btn_Cancel.setText("Stop Parking Timer");
+
         btn_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,11 +113,27 @@ public class CounterDown extends AppCompatActivity {
                 }
             }
         });
-        lyTC.setBackgroundColor(Color.parseColor("#1b5f8a"));
+        btn_findCar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                try {
+                    List<Address> addresses = geocoder.getFromLocationName(Park_Address,5);
+                    if(addresses.size() <= 0) {return;}
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q=" + addresses.get(0).getLatitude() + "," + addresses.get(0).getLongitude());
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivity(mapIntent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        //lyTC.setBackgroundColor(Color.parseColor("#1b5f8a"));
         noti_1=0;
         noti_2=0;
-        txt_Parking_Spot_BayID.setText("Parking Spot :  ( " + Park_BayNo.trim() + " )");
-        txt_Address.setText(Park_Address.trim() + "\n");
+//        txt_Parking_Spot_BayID.setText("Parking Spot :  ( " + Park_BayNo.trim() + " )");
+//        txt_Address.setText(Park_Address.trim() + "\n");
         txt_Timeout_Notification.setText(Noti_Time_Min +" Min");
         TIme_Min = LastTimeMin_int % 60;
         Time_Hour = LastTimeMin_int / 60;

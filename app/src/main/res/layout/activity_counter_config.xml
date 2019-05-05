@@ -35,37 +35,14 @@
         android:id="@+id/scrollView2"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="48dp"
-        android:background="@color/BackGroundPage">
+        android:layout_marginTop="48dp">
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="Hints :"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="20sp"
-                android:textStyle="bold" />
 
-            <me.biubiubiu.justifytext.library.JustifyTextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="20dp"
-                android:gravity="start"
-                android:text="@string/timer_content"
-                android:textColor="@color/quantum_white_text"
-                android:textSize="15sp"
-                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txt_maxtime"
@@ -74,7 +51,7 @@
                 android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:text="Maximum Time : None (Min)"
-                android:textColor="@color/quantum_vanillablue300"
+                android:textColor="@color/quantum_black_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -187,26 +164,6 @@
                     android:textStyle="bold"
                     android:textSize="20dp" />
             </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:gravity="center"
-                android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btn_Start"
-                    android:layout_width="210dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/rounded_edge5"
-                    android:text="Start Parking Timer"
-                    android:textAllCaps="false"
-                    android:textColor="@color/quantum_white_text"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -220,7 +177,7 @@
                     android:layout_marginEnd="20dp"
                     android:gravity="start"
                     android:text="Notification Manager :"
-                    android:textColor="@color/quantum_white_text"
+                    android:textColor="@color/quantum_black_text"
                     android:textSize="20sp"
                     android:textStyle="bold" />
                 <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
@@ -240,7 +197,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:text="5min"
-                        android:textColor="@color/quantum_white_text"
+                        android:textColor="@color/quantum_black_text"
                         app:layout_anchor="@+id/group_RB" />
 
                     <RadioButton
@@ -249,7 +206,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:text="10min"
-                        android:textColor="@color/quantum_white_text"
+                        android:textColor="@color/quantum_black_text"
                         app:layout_anchor="@+id/group_RB" />
 
                     <RadioButton
@@ -258,7 +215,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:text="15min"
-                        android:textColor="@color/quantum_white_text"
+                        android:textColor="@color/quantum_black_text"
                         app:layout_anchor="@+id/group_RB" />
 
                     <RadioButton
@@ -267,11 +224,53 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:text="30min"
-                        android:textColor="@color/quantum_white_text"
+                        android:textColor="@color/quantum_black_text"
                         app:layout_anchor="@+id/group_RB" />
                 </RadioGroup>
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
+                <Button
+                    android:id="@+id/btn_Start"
+                    android:layout_width="210dp"
+                    android:layout_height="50dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Start Parking Timer"
+                    android:textAllCaps="false"
+                    android:textColor="@color/quantum_white_text"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="Hints :"
+                android:textColor="@color/quantum_black_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <me.biubiubiu.justifytext.library.JustifyTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="20dp"
+                android:gravity="start"
+                android:text="@string/timer_content"
+                android:textColor="@color/quantum_black_text"
+                android:textSize="15sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
     </ScrollView>

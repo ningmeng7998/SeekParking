@@ -11,12 +11,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -56,10 +58,14 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
+
 import com.google.maps.android.clustering.ClusterManager;
 
 
 import java.util.ArrayList;
+
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -118,6 +124,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String pub_lng = "";
     private Button btn_parkhere;
     private Button btn_navigation;
+    boolean formResume = true;
+    LatLng latLngPickup = null;
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    private View view;
 
     ClusterManager<MarkerClusterItem> clusterManager;
 
@@ -137,8 +147,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         pub_lng = "";
         Places.initialize(getApplicationContext(), "AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg");
         PlacesClient placesClient = Places.createClient(this);
+//        if (!checkPermission()) {
+//
+//            requestPermission();
+//
+//        }
         LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
         if (!enabled) {
             new AlertDialog.Builder(this)
                     .setTitle("GPS Location")
@@ -176,60 +192,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
-        autocompleteFragment.setHint("Parking Search ...");
+        autocompleteFragment.setHint("Parking Search...");
         autocompleteFragment.setCountry("AU");
-        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME));
+        autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(final Place place) {
                 lyt_info.setVisibility(View.GONE);
-                llat = 0;
-                llng = 0;
-                autoFinder = false;
-                userSelect = 1;
-                waitReady = true;
-                Log.i("EMAS", "Place Found: " + place.getName() + " - " + place.getId());
-                showSelLoc_Name = "";
-                showSelLoc_Name = place.getName();
-                final String[] jsonString = {""};
-                final Network network = new Network();
                 try {
-                    Thread thread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                jsonString[0] = network.getJsonString("https://maps.googleapis.com/maps/api/place/details/json?placeid=" + place.getId() + "&key=AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg");
-                                int g_StartIN = jsonString[0].indexOf("location");
-                                if (g_StartIN > 0) {
-                                    int g_EndIN = jsonString[0].indexOf("}", g_StartIN + 8);
-                                    String lastlatlng = jsonString[0].substring(g_StartIN, g_EndIN + 1);
-                                    lastlatlng = lastlatlng.replace("\r\n", "").replace("\r", "").replace("\n", "").replace(" ", "");
-                                    String l_Lat = "";
-                                    String l_Lng = "";
-                                    int ind_S = 0;
-                                    int ind_E = 0;
-                                    ind_S = lastlatlng.indexOf("\"lat\":") + 6;
-                                    ind_E = lastlatlng.indexOf(",");
-                                    l_Lat = lastlatlng.substring(ind_S, ind_E);
-                                    ind_S = lastlatlng.indexOf("\"lng\":") + 6;
-                                    ind_E = lastlatlng.indexOf("}");
-                                    l_Lng = lastlatlng.substring(ind_S, ind_E);
-                                    llat = Double.parseDouble(l_Lat);
-                                    llng = Double.parseDouble(l_Lng);
-                                    userSelect = 1;
-                                    waitReady = false;
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Location Not Found", Toast.LENGTH_SHORT).show();
-                                    userSelect = 0;
-                                }
-                            } catch (IOException e) {
-                                Log.i("EMAS", "Error IO :");
-                                Log.i("EMAS", e.toString());
-                                userSelect = 0;
-                            }
-                        }
-                    });
-                    thread.start();
+                    latLngPickup = null;
+                    llat = 0;
+                    llng = 0;
+                    autoFinder = false;
+                    userSelect = 1;
+                    waitReady = true;
+                    Log.i("EMAS", "Place Found: " + place.getName() + " - " + place.getId());
+                    showSelLoc_Name = "";
+                    showSelLoc_Name = place.getName();
+                    latLngPickup = place.getLatLng();
+                    Log.i("EMAS", "Lat :" + String.valueOf(latLngPickup.latitude) + " Lon :" + String.valueOf(latLngPickup.longitude));
+                    llat = latLngPickup.latitude;
+                    llng = latLngPickup.longitude;
+                    showlstSel();
                 } catch (Exception e) {
                     Log.i("EMAS", "Error :");
                     Log.i("EMAS", e.toString());
@@ -331,6 +315,60 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 map_uno();
             }
         });
+    }
+
+
+
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
+        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_COARSE_LOCATION);
+
+        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
+    }
+    private void requestPermission() {
+
+        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
+
+    }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+//        switch (requestCode) {
+//            case PERMISSION_REQUEST_CODE:
+//                if (grantResults.length > 0) {
+//
+//                    boolean fineLocationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+//                    boolean coarseLocationAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+//
+//                    if (!(fineLocationAccepted && coarseLocationAccepted)) {
+//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
+//                                showMessageOKCancel("You need to allow access to both the permissions",
+//                                        new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION},
+//                                                            PERMISSION_REQUEST_CODE);
+//                                                }
+//                                            }
+//                                        });
+//                                return;
+//                            }
+//                        }
+//                    }
+//                }
+//
+//                break;
+//        }
+//    }
+    private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
+        new AlertDialog.Builder(MainActivity.this)
+                .setMessage(message)
+                .setPositiveButton("OK", okListener)
+                .setNegativeButton("Cancel", null)
+                .create()
+                .show();
     }
 
 
@@ -643,31 +681,36 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void showlstSel() {
-        lyt_info.setVisibility(View.GONE);
-        userSelect = 1;
-        waitReady = false;
-        autoFinder = false;
-        if (llng == 0) {
-            llng = 0;
-            llat = 0;
-            return;
+        try{
+            lyt_info.setVisibility(View.GONE);
+            userSelect = 1;
+            waitReady = false;
+            autoFinder = false;
+            if (llng == 0) {
+                llng = 0;
+                llat = 0;
+                return;
+            }
+            boolean shnl = autoFinder;
+            Location lctn = new Location("");
+            lctn.setLatitude(llat);
+            lctn.setLongitude(llng);
+            autoFinder = true;
+            onLocationChanged(lctn);
+            autoFinder = shnl;
+            mMap.clear();
+            showSelLoc = false;
+            map_uno();
+            MarkerOptions Mark = new MarkerOptions().position(new LatLng(llat, llng));
+            Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.green_marker_destination));
+            Mark.title(showSelLoc_Name);
+            Mark.snippet("- Your Selected Location");
+            mMap.addMarker(Mark);
+            showSelLoc = true;
+        }catch (Exception e)
+        {
+            Toast.makeText(getApplicationContext(), "Error during show your selection place", Toast.LENGTH_SHORT).show();
         }
-        boolean shnl = autoFinder;
-        Location lctn = new Location("");
-        lctn.setLatitude(llat);
-        lctn.setLongitude(llng);
-        autoFinder = true;
-        onLocationChanged(lctn);
-        autoFinder = shnl;
-        mMap.clear();
-        showSelLoc = false;
-        map_uno();
-        MarkerOptions Mark = new MarkerOptions().position(new LatLng(llat, llng));
-        Mark.icon(BitmapDescriptorFactory.fromResource(R.drawable.green_marker_destination));
-        Mark.title(showSelLoc_Name);
-        Mark.snippet("- Your Selected Location");
-        mMap.addMarker(Mark);
-        showSelLoc = true;
     }
 
     @Override
@@ -677,17 +720,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
         locationManager.requestLocationUpdates(provider, 400, 1, this);
-        while (waitReady) {
-            if (userSelect == 0) {
-                break;
-            }
-        }
-        if (userSelect == 1) {
-            userSelect = 0;
-            lyt_info.setVisibility(View.GONE);
-            showlstSel();
-        }
         Log.i("EMAS", "Resume");
+        formResume = true;
     }
 
     @Override
@@ -695,6 +729,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         super.onPause();
         locationManager.removeUpdates(this);
         Log.i("EMAS", "Pause");
+        formResume = false;
     }
 
 
@@ -836,7 +871,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 case 7:{ p1rv_dur.setText("120"); }
                             }
                             lstdur = 0;
-                            p1rv_desc.setText(" Mon-Sun 8:00am-6:00pm");
+                            p1rv_desc.setText("  8:00am - 6:00pm");
                             p1rv.setVisibility(View.VISIBLE);
                             p2rv.setVisibility(View.GONE);
                             p3rv.setVisibility(View.GONE);
@@ -854,7 +889,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 case 7:{ p1rv_dur.setText("120"); }
                             }
                             lstdur = 0;
-                            p1rv_desc.setText(" Mon-Sun 8:00am-6:00pm");
+                            p1rv_desc.setText("  8:00am - 6:00pm");
                             p1rv.setVisibility(View.VISIBLE);
                             p2rv.setVisibility(View.GONE);
                             p3rv.setVisibility(View.GONE);
@@ -942,7 +977,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.clear();
         final ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
         progressDialog.setTitle("Parking Hunt");
-        progressDialog.setMessage("Fetching Data ... ");
+        progressDialog.setMessage("Finding car parks for you... ");
         progressDialog.setIndeterminate(true);
         progressDialog.setCancelable(false);
         progressDialog.show();
