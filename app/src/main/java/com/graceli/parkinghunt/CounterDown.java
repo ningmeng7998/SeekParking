@@ -91,7 +91,7 @@ public class CounterDown extends AppCompatActivity {
         txt_End_Parking_Time = findViewById(R.id.txt_EPT);
         txt_Notification_Time = findViewById(R.id.txt_NT);
         txt_Timeout_Notification = findViewById(R.id.txt_TOUTN);
-        // = findViewById(R.id.txt_PS_bay);
+        //txt_Parking_Spot_BayID = findViewById(R.id.txt_PS_bay);
         txt_Address = findViewById(R.id.txt_Address);
         txt_Timer_Hour = findViewById(R.id.txt_Hour);
         txt_Timer_Min = findViewById(R.id.txt_Min);
@@ -99,7 +99,6 @@ public class CounterDown extends AppCompatActivity {
         lyTC = findViewById(R.id.ly_TimerColor);
         btn_findCar = findViewById(R.id.btn_find_car);
         btn_Cancel = findViewById(R.id.btn_Cancel);
-        btn_Cancel.setText("Stop Parking Timer");
 
         btn_Cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,7 +128,6 @@ public class CounterDown extends AppCompatActivity {
                 }
             }
         });
-        //lyTC.setBackgroundColor(Color.parseColor("#1b5f8a"));
         noti_1=0;
         noti_2=0;
 //        txt_Parking_Spot_BayID.setText("Parking Spot :  ( " + Park_BayNo.trim() + " )");

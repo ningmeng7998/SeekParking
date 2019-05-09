@@ -18,6 +18,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Tutorial"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Intro5" />
+        <activity android:name=".Intro4" />
+        <activity android:name=".Intro3" />
+        <activity android:name=".Intro2" />
+        <activity android:name=".Intro1" />
+        <activity
             android:name=".CounterDown"
             android:label="Parking Time"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -37,6 +45,9 @@
             android:name=".UserGuide"
             android:label="User guide"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Links"
+            android:label="User guide"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">

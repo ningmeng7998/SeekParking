@@ -10,10 +10,14 @@
                 android:title="@string/item_help"
                 android:icon="@drawable/contactus"
                 android:id="@+id/m_help" />
-            <!--<item-->
-                <!--android:title="User Guide"-->
-                <!--android:icon="@drawable/userg"-->
-                <!--android:id="@+id/m_Userguide" />-->
+            <item
+                android:title="Tutorial"
+                android:icon="@drawable/userg"
+                android:id="@+id/m_Userguide" />
+            <item
+                android:title="Useful Links"
+                android:icon="@drawable/userg"
+                android:id="@+id/m_link" />
         </menu>
     </item>
     <item android:title="Other">

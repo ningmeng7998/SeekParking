@@ -77,7 +77,17 @@ public class CounterConfig extends AppCompatActivity {
             bayno = senderIntent.getStringExtra("bayNo");
             parkAddress = Getlatlon_Address(Double.parseDouble(mLat),Double.parseDouble(mLon));
             TextView txtMaxtime = findViewById(R.id.txt_maxtime);
-            txtMaxtime.setText("Maximum Time : " + timeLst + " (Min)");
+            int lstmincon2 = Integer.parseInt(timeLst);
+            int time_Min2 = lstmincon2 % 60;
+            int time_Hour2 = lstmincon2 / 60;
+            String tmhrBq = String.valueOf(time_Hour2);
+            tmhrBq = tmhrBq.length() == 1 ? "0" + tmhrBq : tmhrBq;
+            String tmmnBq = String.valueOf(time_Min2);
+            tmmnBq = tmmnBq.length() == 1 ? "0" + tmmnBq : tmmnBq;
+            if(!tmhrBq.equals("00"))
+            {txtMaxtime.setText("Maximum Time : " + tmhrBq + ":" + tmmnBq); }
+            else
+            { txtMaxtime.setText("Maximum Time : " + tmmnBq + " Min"); }
         }catch (Exception e){
             Toast.makeText(getApplicationContext(), "Error to Set Parking Time", Toast.LENGTH_SHORT).show();
             onBackPressed();

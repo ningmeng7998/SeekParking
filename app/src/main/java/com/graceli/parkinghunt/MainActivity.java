@@ -11,17 +11,16 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -46,6 +45,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.RectangularBounds;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.AutocompleteActivity;
@@ -56,18 +56,15 @@ import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
-
-
 import com.google.maps.android.clustering.ClusterManager;
-
-
 import java.util.ArrayList;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
-public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback, LocationListener, NavigationView.OnNavigationItemSelectedListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private class marker_Parking {
         public String bay_id;
@@ -76,7 +73,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         public String lat;
         public String lon;
     }
-
 
     private class marker_Information {
         public String bayid;
@@ -92,10 +88,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         public String duration3;
         public String duration4;
 
-        public String endtime1;
-        public String endtime2;
-        public String endtime3;
-        public String endtime4;
+        public String fromday1;
+        public String fromday2;
+        public String fromday3;
+        public String fromday4;
+
+        public String today1;
+        public String today2;
+        public String today3;
+        public String today4;
     }
 
 
@@ -124,10 +125,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private String pub_lng = "";
     private Button btn_parkhere;
     private Button btn_navigation;
+    private TextView link;
     boolean formResume = true;
     LatLng latLngPickup = null;
     private static final int PERMISSION_REQUEST_CODE = 200;
     private View view;
+    static public final int REQUEST_LOCATION = 1;
 
     ClusterManager<MarkerClusterItem> clusterManager;
 
@@ -140,21 +143,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         lyt_info = findViewById(R.id.lyt_info);
         lyt_info.setVisibility(View.GONE);
         FM = (FrameLayout) findViewById(R.id.fl_filter);
+        link = findViewById(R.id.link);
         btn_parkhere = findViewById(R.id.btn_ParkHere);
         btn_navigation = findViewById(R.id.btn_Navigation);
         FM.setVisibility(View.GONE);
         pub_Lat = "";
         pub_lng = "";
         Places.initialize(getApplicationContext(), "AIzaSyA9TR7G3OlBM_xUezgFS1NvIT64WuHQhtg");
+        link.setMovementMethod(LinkMovementMethod.getInstance());
         PlacesClient placesClient = Places.createClient(this);
-//        if (!checkPermission()) {
-//
-//            requestPermission();
-//
-//        }
         LocationManager service = (LocationManager) getSystemService(LOCATION_SERVICE);
         boolean enabled = service.isProviderEnabled(LocationManager.GPS_PROVIDER);
-
         if (!enabled) {
             new AlertDialog.Builder(this)
                     .setTitle("GPS Location")
@@ -179,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(getApplicationContext(), "Location Access denied", Toast.LENGTH_LONG).show();
         }
         Location location = locationManager.getLastKnownLocation(provider);
         if (location != null) {
@@ -193,7 +192,11 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         AutocompleteSupportFragment autocompleteFragment = (AutocompleteSupportFragment)
                 getSupportFragmentManager().findFragmentById(R.id.autocomplete_fragment);
         autocompleteFragment.setHint("Parking Search...");
-        autocompleteFragment.setCountry("AU");
+        //autocompleteFragment.setCountry("AU");
+        RectangularBounds bounds = RectangularBounds.newInstance(
+                new LatLng(-38.411251,144.553207),
+                new LatLng(-37.540112,145.507736));
+        autocompleteFragment.setLocationRestriction(bounds);
         autocompleteFragment.setPlaceFields(Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG));
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
@@ -317,51 +320,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
     }
 
-
-
-    private boolean checkPermission() {
-        int result = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_FINE_LOCATION);
-        int result1 = ContextCompat.checkSelfPermission(getApplicationContext(), ACCESS_COARSE_LOCATION);
-
-        return result == PackageManager.PERMISSION_GRANTED && result1 == PackageManager.PERMISSION_GRANTED;
-    }
-    private void requestPermission() {
-
-        ActivityCompat.requestPermissions(this, new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, PERMISSION_REQUEST_CODE);
-
-    }
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
-//        switch (requestCode) {
-//            case PERMISSION_REQUEST_CODE:
-//                if (grantResults.length > 0) {
-//
-//                    boolean fineLocationAccepted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-//                    boolean coarseLocationAccepted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-//
-//                    if (!(fineLocationAccepted && coarseLocationAccepted)) {
-//                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                            if (shouldShowRequestPermissionRationale(ACCESS_FINE_LOCATION)) {
-//                                showMessageOKCancel("You need to allow access to both the permissions",
-//                                        new DialogInterface.OnClickListener() {
-//                                            @Override
-//                                            public void onClick(DialogInterface dialog, int which) {
-//                                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//                                                    requestPermissions(new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION},
-//                                                            PERMISSION_REQUEST_CODE);
-//                                                }
-//                                            }
-//                                        });
-//                                return;
-//                            }
-//                        }
-//                    }
-//                }
-//
-//                break;
-//        }
-//    }
     private void showMessageOKCancel(String message, DialogInterface.OnClickListener okListener) {
         new AlertDialog.Builder(MainActivity.this)
                 .setMessage(message)
@@ -370,7 +328,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 .create()
                 .show();
     }
-
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -388,10 +345,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     Intent GoActivity2 = new Intent(MainActivity.this, HelpPage.class);
                     startActivity(GoActivity2);
                     break;
-//                case R.id.m_Userguide:
-//                    Intent GoActivity3 = new Intent(MainActivity.this, UserGuide.class);
-//                    startActivity(GoActivity3);
-//                    break;
+                case R.id.m_Userguide:
+                    Intent GoActivity3 = new Intent(MainActivity.this, Tutorial.class);
+                    startActivity(GoActivity3);
+                    break;
+                case R.id.m_link:
+                    Intent GoActivity4 = new Intent(MainActivity.this, Links.class);
+                    startActivity(GoActivity4);
+                    break;
                 case R.id.m_exit:
                     finish();
                     break;
@@ -412,8 +373,19 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         int Dur3 = 0;
         int Dur4 = 0;
         int addNewM = 0;
+        int FromDay1 = 0;
+        int FromDay2 = 0;
+        int FromDay3 = 0;
+        int FromDay4 = 0;
+        int ToDay1 = 0;
+        int ToDay2 = 0;
+        int ToDay3 = 0;
+        int ToDay4 = 0;
+        int ToDayDig = 0;
+        Calendar calendar = Calendar.getInstance();
         try {
             if (!bv.isBoo()) { Toast.makeText(getApplicationContext(), "Please Wait ...", Toast.LENGTH_SHORT).show(); return; }
+            try{ ToDayDig = calendar.get(Calendar.DAY_OF_WEEK); }catch (Exception e){ ToDayDig = 0; }
             try{
                 SeekBar seekbar = findViewById(R.id.rl_seekbar);
                 ParkType = seekbar.getProgress();
@@ -451,17 +423,53 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (info.duration4 == null) {
                     info.duration4 = "";
                 }
-                if (info.endtime1 == null) {
-                    info.endtime1 = "";
+                if (info.fromday1 == null) {
+                    info.fromday1 = "7";
                 }
-                if (info.endtime2 == null) {
-                    info.endtime2 = "";
+                if (info.fromday2 == null) {
+                    info.fromday2 = "7";
                 }
-                if (info.endtime3 == null) {
-                    info.endtime3 = "";
+                if (info.fromday3 == null) {
+                    info.fromday3 = "7";
                 }
-                if (info.endtime4 == null) {
-                    info.endtime4 = "";
+                if (info.fromday4 == null) {
+                    info.fromday4 = "7";
+                }
+                if (info.today1 == null) {
+                    info.today1 = "7";
+                }
+                if (info.today2 == null) {
+                    info.today2 = "7";
+                }
+                if (info.today3 == null) {
+                    info.today3 = "7";
+                }
+                if (info.today4 == null) {
+                    info.today4 = "7";
+                }
+                if (info.fromday1.equals("")) {
+                    info.fromday1 = "7";
+                }
+                if (info.fromday2.equals("")) {
+                    info.fromday2 = "7";
+                }
+                if (info.fromday3.equals("")) {
+                    info.fromday3 = "7";
+                }
+                if (info.fromday4.equals("")) {
+                    info.fromday4 = "7";
+                }
+                if (info.today1.equals("")) {
+                    info.today1 = "7";
+                }
+                if (info.today2.equals("")) {
+                    info.today2 = "7";
+                }
+                if (info.today3.equals("")) {
+                    info.today3 = "7";
+                }
+                if (info.today4.equals("")) {
+                    info.today4 = "7";
                 }
             }
             int infoFound = 0;
@@ -514,33 +522,59 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 if(info.duration2.trim()==""){info.duration2="NULL";}
                                 if(info.duration3.trim()==""){info.duration3="NULL";}
                                 if(info.duration4.trim()==""){info.duration4="NULL";}
+                                if(info.fromday1.trim()==""){info.fromday1="7";}
+                                if(info.fromday2.trim()==""){info.fromday2="7";}
+                                if(info.fromday3.trim()==""){info.fromday3="7";}
+                                if(info.fromday4.trim()==""){info.fromday4="7";}
+                                if(info.today1.trim()==""){info.today1="7";}
+                                if(info.today2.trim()==""){info.today2="7";}
+                                if(info.today3.trim()==""){info.today3="7";}
+                                if(info.today4.trim()==""){info.today4="7";}
                                 snippetS = park.bay_id.trim() + "#" +
-                                        info.description1.trim() + "@" + info.duration1.trim() + "!" +
-                                        info.description2.trim() + "@" + info.duration2.trim() + "!" +
-                                        info.description3.trim() + "@" + info.duration3.trim() + "!" +
-                                        info.description4.trim() + "@" + info.duration4.trim();
+                                        info.description1.trim() + "@" + info.duration1.trim() + "@" + info.fromday1.trim() + "@" + info.today1.trim() + "!" +
+                                        info.description2.trim() + "@" + info.duration2.trim() + "@" + info.fromday2.trim() + "@" + info.today2.trim() + "!" +
+                                        info.description3.trim() + "@" + info.duration3.trim() + "@" + info.fromday3.trim() + "@" + info.today3.trim() + "!" +
+                                        info.description4.trim() + "@" + info.duration4.trim() + "@" + info.fromday4.trim() + "@" + info.today4.trim();
                                 snippetS = snippetS.replace(" ", "").trim();
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.replace("\n\n", "\n");
-                                snippetS = snippetS.replace("\n\n", "\n");
+                                for(char YF = 0;YF<10;YF++) { snippetS = snippetS.replace("\n\n", "\n"); }
                                 snippetS = snippetS.trim();
                                 Mark.snippet(snippetS);
                                 try{
                                     Dur1=Integer.parseInt(info.duration1.trim().replaceAll("[\\D]",""));
                                 }catch (Exception e){ Dur1 = 0; }
-
                                 try{
                                     Dur2=Integer.parseInt(info.duration2.trim().replaceAll("[\\D]",""));
                                 }catch (Exception e){ Dur2 = 0; }
-
                                 try{
                                     Dur3=Integer.parseInt(info.duration3.trim().replaceAll("[\\D]",""));
                                 }catch (Exception e){ Dur3 = 0; }
-
                                 try{
                                     Dur4=Integer.parseInt(info.duration4.trim().replaceAll("[\\D]",""));
                                 }catch (Exception e){ Dur4 = 0; }
+                                try{
+                                    FromDay1=Integer.parseInt(info.fromday1.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ FromDay1 = 7; }
+                                try{
+                                    FromDay2=Integer.parseInt(info.fromday2.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ FromDay2 = 7; }
+                                try{
+                                    FromDay3=Integer.parseInt(info.fromday3.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ FromDay3 = 7; }
+                                try{
+                                    FromDay4=Integer.parseInt(info.fromday4.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ FromDay4 = 7; }
+                                try{
+                                    ToDay1=Integer.parseInt(info.today1.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ ToDay1 = 7; }
+                                try{
+                                    ToDay2=Integer.parseInt(info.today2.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ ToDay2 = 7; }
+                                try{
+                                    ToDay3=Integer.parseInt(info.today3.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ ToDay3 = 7; }
+                                try{
+                                    ToDay4=Integer.parseInt(info.today4.trim().replaceAll("[\\D]",""));
+                                }catch (Exception e){ ToDay4 = 7; }
                             }
                             if (infoFound == 1) {
                                 break;
@@ -559,61 +593,58 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             {
                                 case 1: // 1/4 P
                                 {
-                                    if((Dur1>0) && (Dur1<=15)) { addNewM = 1; }
-                                    if((Dur2>0) && (Dur2<=15)) { addNewM = 1; }
-                                    if((Dur3>0) && (Dur3<=15)) { addNewM = 1; }
-                                    if((Dur4>0) && (Dur4<=15)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { if((Dur1>0) && (Dur1<=15)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { if((Dur2>0) && (Dur2<=15)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { if((Dur3>0) && (Dur3<=15)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { if((Dur4>0) && (Dur4<=15)) { addNewM = 1; } }
                                     break;
                                 }
-
                                 case 2: // 1/2 P
                                 {
-                                    if((Dur1>15) && (Dur1<=30)) { addNewM = 1; }
-                                    if((Dur2>15) && (Dur2<=30)) { addNewM = 1; }
-                                    if((Dur3>15) && (Dur3<=30)) { addNewM = 1; }
-                                    if((Dur4>15) && (Dur4<=30)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { if((Dur1>15) && (Dur1<=30)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { if((Dur2>15) && (Dur2<=30)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { if((Dur3>15) && (Dur3<=30)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { if((Dur4>15) && (Dur4<=30)) { addNewM = 1; } }
                                     break;
                                 }
-
                                 case 3: // 1 P
                                 {
-                                    if((Dur1>30) && (Dur1<=60)) { addNewM = 1; }
-                                    if((Dur2>30) && (Dur2<=60)) { addNewM = 1; }
-                                    if((Dur3>30) && (Dur3<=60)) { addNewM = 1; }
-                                    if((Dur4>30) && (Dur4<=60)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { if((Dur1>30) && (Dur1<=60)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { if((Dur2>30) && (Dur2<=60)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { if((Dur3>30) && (Dur3<=60)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { if((Dur4>30) && (Dur4<=60)) { addNewM = 1; } }
                                     break;
                                 }
-
                                 case 4: // 2 P
                                 {
-                                    if((Dur1>60) && (Dur1<=120)) { addNewM = 1; }
-                                    if((Dur2>60) && (Dur2<=120)) { addNewM = 1; }
-                                    if((Dur3>60) && (Dur3<=120)) { addNewM = 1; }
-                                    if((Dur4>60) && (Dur4<=120)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { if((Dur1>60) && (Dur1<=120)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { if((Dur2>60) && (Dur2<=120)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { if((Dur3>60) && (Dur3<=120)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { if((Dur4>60) && (Dur4<=120)) { addNewM = 1; } }
                                     break;
                                 }
-
                                 case 5: // 3 P
                                 {
-                                    if((Dur1>120) && (Dur1<=180)) { addNewM = 1; }
-                                    if((Dur2>120) && (Dur2<=180)) { addNewM = 1; }
-                                    if((Dur3>120) && (Dur3<=180)) { addNewM = 1; }
-                                    if((Dur4>120) && (Dur4<=180)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { if((Dur1>120) && (Dur1<=180)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { if((Dur2>120) && (Dur2<=180)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { if((Dur3>120) && (Dur3<=180)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { if((Dur4>120) && (Dur4<=180)) { addNewM = 1; } }
                                     break;
                                 }
-
                                 case 6: // 4 P
                                 {
-                                    if((Dur1>180) && (Dur1<=240)) { addNewM = 1; }
-                                    if((Dur2>180) && (Dur2<=240)) { addNewM = 1; }
-                                    if((Dur3>180) && (Dur3<=240)) { addNewM = 1; }
-                                    if((Dur4>180) && (Dur4<=240)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { if((Dur1>180) && (Dur1<=240)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { if((Dur2>180) && (Dur2<=240)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { if((Dur3>180) && (Dur3<=240)) { addNewM = 1; } }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { if((Dur4>180) && (Dur4<=240)) { addNewM = 1; } }
                                     break;
                                 }
-
                                 case 7: // All
                                 {
-                                    addNewM = 1;
+                                    if((ToDayDig>=FromDay1) && (ToDayDig<=ToDay1)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay2) && (ToDayDig<=ToDay2)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay3) && (ToDayDig<=ToDay3)) { addNewM = 1; }
+                                    if((ToDayDig>=FromDay4) && (ToDayDig<=ToDay4)) { addNewM = 1; }
                                     break;
                                 }
                             }
@@ -622,10 +653,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         {
                             String snippetS = "";
                             snippetS = park.bay_id.trim() + "#" +
-                                    "NULL@NULL" + "!" +
-                                    "NULL@NULL" + "!" +
-                                    "NULL@NULL" + "!" +
-                                    "NULL@NULL" ;
+                                    "NULL@NULL@7@7" + "!" +
+                                    "NULL@NULL@7@7" + "!" +
+                                    "NULL@NULL@7@7" + "!" +
+                                    "NULL@NULL@7@7" ;
                             snippetS = snippetS.replace(" ", "").trim();
                             snippetS = snippetS.replace("\n\n", "\n");
                             snippetS = snippetS.replace("\n\n", "\n");
@@ -760,6 +791,9 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     pub_Lat = "";
                     pub_lng = "";
                     int ParkKKing = 0;
+                    int ToDayDig = 0;
+                    Calendar calendar = Calendar.getInstance();
+                    try{ ToDayDig = calendar.get(Calendar.DAY_OF_WEEK); }catch (Exception e){ ToDayDig = 0; }
                     try{
                         SeekBar seekbar = findViewById(R.id.rl_seekbar);
                         ParkKKing = seekbar.getProgress();
@@ -812,47 +846,71 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                     {
                                         if(str3[0]==null){str3[0]="";}
                                         if(str3[1]==null){str3[1]="";}
+                                        if(str3[2]==null){str3[1]="7";}
+                                        if(str3[3]==null){str3[1]="7";}
                                         if(str3[0].equals("NULL")){str3[0]="";}
                                         if(str3[1].equals("NULL")){str3[1]="";}
+                                        if(str3[2].equals("NULL")){str3[2]="7";}
+                                        if(str3[3].equals("NULL")){str3[3]="7";}
                                         if (!str3[0].trim().equals(""))
                                         {
                                             cnt++;
                                             switch (cnt){
                                                 case 1:{
-                                                    p1rv_desc.setText("  " + str3[0].trim());
-                                                    p1rv_dur.setText(str3[1].trim());
-                                                    int lodu = Integer.parseInt(str3[1].trim());
-                                                    if (lodu>=lstdur) {lstdur=lodu;}
-                                                    desc1 = 1;
-                                                    p1rv.setVisibility(View.VISIBLE);
-                                                    break;
+                                                    int SD = Integer.parseInt(str3[2].trim().replaceAll("[\\D]",""));
+                                                    int ED = Integer.parseInt(str3[3].trim().replaceAll("[\\D]",""));
+                                                    if((ToDayDig>=SD) && (ToDayDig<=ED))
+                                                    {
+                                                        p1rv_desc.setText("  " + str3[0].trim());
+                                                        p1rv_dur.setText(str3[1].trim());
+                                                        int lodu = Integer.parseInt(str3[1].trim());
+                                                        if (lodu>=lstdur) {lstdur=lodu;}
+                                                        desc1 = 1;
+                                                        p1rv.setVisibility(View.VISIBLE);
+                                                        break;
+                                                    }
                                                 }
                                                 case 2:{
-                                                    p2rv_desc.setText("  " + str3[0].trim());
-                                                    p2rv_dur.setText(str3[1].trim());
-                                                    int lodu = Integer.parseInt(str3[1].trim());
-                                                    if (lodu>=lstdur) {lstdur=lodu;}
-                                                    desc2 = 1;
-                                                    p2rv.setVisibility(View.VISIBLE);
-                                                    break;
+                                                    int SD = Integer.parseInt(str3[2].trim().replaceAll("[\\D]",""));
+                                                    int ED = Integer.parseInt(str3[3].trim().replaceAll("[\\D]",""));
+                                                    if((ToDayDig>=SD) && (ToDayDig<=ED))
+                                                    {
+                                                        p2rv_desc.setText("  " + str3[0].trim());
+                                                        p2rv_dur.setText(str3[1].trim());
+                                                        int lodu = Integer.parseInt(str3[1].trim());
+                                                        if (lodu>=lstdur) {lstdur=lodu;}
+                                                        desc2 = 1;
+                                                        p2rv.setVisibility(View.VISIBLE);
+                                                        break;
+                                                    }
                                                 }
                                                 case 3:{
-                                                    p3rv_desc.setText("  " + str3[0].trim());
-                                                    p3rv_dur.setText(str3[1].trim());
-                                                    int lodu = Integer.parseInt(str3[1].trim());
-                                                    if (lodu>=lstdur) {lstdur=lodu;}
-                                                    desc3 = 1;
-                                                    p3rv.setVisibility(View.VISIBLE);
-                                                    break;
+                                                    int SD = Integer.parseInt(str3[2].trim().replaceAll("[\\D]",""));
+                                                    int ED = Integer.parseInt(str3[3].trim().replaceAll("[\\D]",""));
+                                                    if((ToDayDig>=SD) && (ToDayDig<=ED))
+                                                    {
+                                                        p3rv_desc.setText("  " + str3[0].trim());
+                                                        p3rv_dur.setText(str3[1].trim());
+                                                        int lodu = Integer.parseInt(str3[1].trim());
+                                                        if (lodu>=lstdur) {lstdur=lodu;}
+                                                        desc3 = 1;
+                                                        p3rv.setVisibility(View.VISIBLE);
+                                                        break;
+                                                    }
                                                 }
                                                 case 4:{
-                                                    p4rv_desc.setText("  " + str3[0].trim());
-                                                    p4rv_dur.setText(str3[1].trim());
-                                                    int lodu = Integer.parseInt(str3[1].trim());
-                                                    if (lodu>=lstdur) {lstdur=lodu;}
-                                                    desc4 = 1;
-                                                    p4rv.setVisibility(View.VISIBLE);
-                                                    break;
+                                                    int SD = Integer.parseInt(str3[2].trim().replaceAll("[\\D]",""));
+                                                    int ED = Integer.parseInt(str3[3].trim().replaceAll("[\\D]",""));
+                                                    if((ToDayDig>=SD) && (ToDayDig<=ED))
+                                                    {
+                                                        p4rv_desc.setText("  " + str3[0].trim());
+                                                        p4rv_dur.setText(str3[1].trim());
+                                                        int lodu = Integer.parseInt(str3[1].trim());
+                                                        if (lodu>=lstdur) {lstdur=lodu;}
+                                                        desc4 = 1;
+                                                        p4rv.setVisibility(View.VISIBLE);
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }

@@ -19,4 +19,25 @@
     <string name="timer_feature_content">Avoid violation of time limit by setting a timer to move your vehicle from the parking side.</string>
     <string name="refresh_feature_content">Get up-to-date information of vacancy in real-time to support your hunt for a parking space.</string>
 
+
+    <string name="next">NEXT</string>
+    <string name="skip">SKIP</string>
+    <string name="start">GOT IT</string>
+    <string name="slide_1_title">Save Time, Save Money!</string>
+    <string name="slide_1_desc">Find your parking space fastest way</string>
+    <string name="slide_2_title">Insert your destination</string>
+    <string name="slide_2_desc"></string>
+    <string name="slide_3_title">Locate the nearest car park</string>
+    <string name="slide_3_desc"></string>
+    <string name="slide_4_title">Start navigation</string>
+    <string name="slide_4_desc"></string>
+    <string name="slide_5_title">Enjoy your stay!</string>
+    <string name="slide_5_desc"></string>
+    <string name="play_again_desc">To see the welcome slider again, goto Settings -> apps -> welcome slider -> clear data</string>
+    <string name="play_again">Play Again</string>
+    <string name="title_activity_tutorial_menu">TutorialMenu</string>
+
+    <string name="link"><a href="https://www.google.com/">Check Recommended Arrival Time for this bay</a></string>
+    <string name="info_link1"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/parking-locations-fees/Pages/parking-locations-and-fees.aspx">Locations and Fees</a></string>
+    <string name="info_link2"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/Pages/parking.aspx#map">Parking Fines</a></string>
 </resources>

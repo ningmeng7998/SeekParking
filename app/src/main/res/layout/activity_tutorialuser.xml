@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:showIn="@layout/activity_usergd"
-    tools:context=".UserGuide">
+    tools:showIn="@layout/activity_tutorialuser"
+    tools:context=".Tutorial">
 
     <android.support.v4.view.ViewPager
         android:id="@+id/view_pager"

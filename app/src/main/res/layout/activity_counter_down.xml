@@ -244,10 +244,10 @@
 
                 <Button
                     android:id="@+id/btn_Cancel"
-                    android:layout_width="170dp"
+                    android:layout_width="130dp"
                     android:layout_height="40dp"
-                    android:background="@drawable/rounded_edge5"
-                    android:text="Stop Parking Timer"
+                    android:background="@drawable/rounded_edge4"
+                    android:text="Stop Timer"
                     android:layout_alignParentStart="true"
                     android:textAllCaps="false"
                     android:textColor="@color/quantum_white_text" />

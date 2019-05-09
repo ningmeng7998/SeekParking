@@ -398,6 +398,19 @@
                                 android:textStyle="bold"
                                 android:layout_alignParentEnd="true"/>
                         </RelativeLayout>
+                        <TextView
+                            android:id="@+id/link"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:text="@string/link"
+                            android:layout_gravity="center"
+                            android:gravity="bottom"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            />
                     </LinearLayout>
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -451,7 +464,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:gravity="start"
-                android:text="Version 2"
+                android:text="Version 3"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginLeft="20dp"/>
         </LinearLayout>
