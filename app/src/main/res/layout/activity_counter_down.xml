@@ -47,7 +47,7 @@
                     android:text="00"
                     android:textSize="70sp"
                     android:textStyle="bold"
-                    android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                    android:textColor="@color/quantum_white_text"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -56,7 +56,7 @@
                     android:textStyle="bold"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                    android:textColor="@color/quantum_white_text"/>
                 <TextView
                     android:id="@+id/txt_Min"
                     android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                     android:text="00"
                     android:textSize="70sp"
                     android:textStyle="bold"
-                    android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                    android:textColor="@color/quantum_white_text"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:textStyle="bold"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                    android:textColor="@color/quantum_white_text"/>
                 <TextView
                     android:id="@+id/txt_Sec"
                     android:layout_width="wrap_content"
@@ -81,7 +81,7 @@
                     android:text="00"
                     android:textSize="70sp"
                     android:textStyle="bold"
-                    android:textColor="@color/common_google_signin_btn_text_light_focused"/>
+                    android:textColor="@color/quantum_white_text"/>
             </LinearLayout>
 
 
@@ -179,31 +179,31 @@
             </RelativeLayout>
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:textColor="@color/quantum_black_text"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="- Timeout Notification :"/>
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="40dp"-->
+                <!--android:layout_marginLeft="30dp"-->
+                <!--android:layout_marginRight="30dp"-->
+                <!--android:orientation="horizontal">-->
+                <!--<TextView-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentStart="true"-->
+                    <!--android:textColor="@color/quantum_black_text"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textStyle="bold"-->
+                    <!--android:text="- Timeout Notification :"/>-->
 
-                <TextView
-                    android:id="@+id/txt_TOUTN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:text="12 Min"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
+                <!--<TextView-->
+                    <!--android:id="@+id/txt_TOUTN"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:text="12 Min"-->
+                    <!--android:textColor="@color/colorPrimary"-->
+                    <!--android:textSize="20sp"-->
+                    <!--android:textStyle="bold" />-->
+            <!--</RelativeLayout>-->
 
             <!--<TextView-->
                 <!--android:id="@+id/txt_PS_bay"-->
@@ -231,7 +231,6 @@
                 android:textStyle="normal" />
 
 
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -246,25 +245,27 @@
                     android:id="@+id/btn_Cancel"
                     android:layout_width="130dp"
                     android:layout_height="40dp"
+                    android:drawableStart="@drawable/timer_stop_small"
+                    android:drawablePadding="2px"
                     android:background="@drawable/rounded_edge4"
                     android:text="Stop Timer"
                     android:layout_alignParentStart="true"
                     android:textAllCaps="false"
                     android:textColor="@color/quantum_white_text" />
+
                 <Button
                     android:id="@+id/btn_find_car"
                     android:layout_width="130dp"
                     android:layout_height="40dp"
+                    android:drawableStart="@drawable/google_icon"
                     android:background="@drawable/rounded_edge4"
                     android:text="Find my car"
                     android:textAlignment="center"
                     android:textColor="@color/quantum_white_text"
                     android:layout_alignParentEnd="true"
                     android:textAllCaps="false"/>
+
             </RelativeLayout>
-
-
-
 
         </LinearLayout>
     </ScrollView>

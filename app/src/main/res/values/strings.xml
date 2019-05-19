@@ -1,25 +1,26 @@
 <resources>
-    <string name="app_name">ParkingHunt</string>
-    <string name="title_activity_about_f">About ParkingHunt</string>
-    <string name="title_activity_helpph_f">Parking Hunt Features</string>
+    <string name="app_name">seek parking</string>
+    <string name="title_activity_about_f">About Seek Parking</string>
+    <string name="title_activity_helpph_f">Seek Parking Features</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">ParkingHunt Notification</string>
-    <string name="title_activity_UG">User Guide</string>
+    <string name="title_notifications">Seek Parking Notification</string>
+    <string name="title_activity_UG">Useful Links</string>
     <string name="title_activity_CC">Parking Timer</string>
     <string name="title_activity_CD">Timer Reminder</string>
     <string name="channel_name">default_channel</string>
     <string name="channel_description">This is default channel</string>
     <string name="item_help">Features</string>
-    <string name="item_title">About Parking Hunt</string>
-    <string name="timer_content">- Please pay attention to the maximum allowed time.\n- Please specify a parking time ending notice.\n- If you wish, set your usage time manually.\n- After the timer set, press the start button.\n- For return press back button\n</string>
-    <string name="search_feature_content">(Please note that this function is current restricted to Australia only.) Display all possible on-street and off-street parking bays within a certain radius from your intended destination in Melbourne CBD region. </string>
+    <string name="item_title">About Seek Parking</string>
+    <string name="timer_content">1) Please pay attention to the maximum allowed time\n2) Please specify a parking time ending notice\n3) If you wish, set your usage time manually\n4) After the timer set, press the start button\n5) For return press back button\n</string>
+    <string name="search_feature_content">Display all possible on-street and off-street parking bays within a certain radius from your intended destination in Melbourne CBD region. </string>
     <string name="navigation_feature_content">We utilise Google platform to augment your driving experience by providing turn-by-turn navigation.</string>
     <string name="filter_feature_content">Actively look for parking bays that suit your demand for duration of stay by filtering out all other irrelevant parking signs.</string>
     <string name="timer_feature_content">Avoid violation of time limit by setting a timer to move your vehicle from the parking side.</string>
-    <string name="refresh_feature_content">Get up-to-date information of vacancy in real-time to support your hunt for a parking space.</string>
-
-
+    <string name="refresh_feature_content">Get up-to-date information of vacancy in real-time to support your seek for a parking space.</string>
+    <string name="app_description">Seek parking is a parking solution which gives you the ability to Search, Navigate and Set Reminder, all with a single touch of the button. It is made to ease your parking experience.\n</string>
+    <string name="copyright_content">The services provided by this app use certain third party data, including such that are licensed by The City of Melbourne.\n</string>
+    <string name="liability_content">- any inaccuracies or changes to the Seek Parking Services including the location, availability, or terms and conditions that apply to any parking service.\n- any interruptions or delays to access the app caused by any act or default of the  third party.\n- any direct, indirect, or sequential damage incurred by you or the third party in relation to the Seek Parking services.\n</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
     <string name="start">GOT IT</string>
@@ -37,7 +38,8 @@
     <string name="play_again">Play Again</string>
     <string name="title_activity_tutorial_menu">TutorialMenu</string>
 
-    <string name="link"><a href="https://www.google.com/">Check Recommended Arrival Time for this bay</a></string>
-    <string name="info_link1"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/parking-locations-fees/Pages/parking-locations-and-fees.aspx">Locations and Fees</a></string>
-    <string name="info_link2"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/Pages/parking.aspx#map">Parking Fines</a></string>
+    <string name="info_link1"><a href="https://seekparking.shinyapps.io/check_vacant_carpark/">Check available car parks ></a></string>
+
+    <string name="info_link2"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/parking-locations-fees/Pages/parking-locations-and-fees.aspx">Locations and Fees ></a></string>
+    <string name="info_link3"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/Pages/parking.aspx#map">Parking Fines ></a></string>
 </resources>

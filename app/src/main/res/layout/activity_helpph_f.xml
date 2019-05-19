@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/navigation"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:contentDescription="navigation icon"/>
 
             <TextView
@@ -110,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/funnel"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="50dp"
             android:contentDescription="filter icon"/>
 
             <TextView
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/clock"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:contentDescription="Timer icon"/>
 
             <TextView
@@ -170,7 +170,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:src="@drawable/refresh_icon"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:contentDescription="Refresh icon"/>
 
             <TextView
@@ -182,7 +182,7 @@
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
- n
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

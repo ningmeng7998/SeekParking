@@ -58,7 +58,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="What is Parking Hunt ?"
+                android:text="What is Seek Parking ?"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -69,7 +69,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="Parking Hunt is a parking solution which gives you the ability to Search, Navigate and Set Reminder, all with a single touch of the button. It is made to ease your parking experience.\n"
+                android:text="@string/app_description"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -99,7 +99,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="The services provided by this app use certain third party data, including such that are licensed by The City of Melbourne.\n"
+                android:text="@string/copyright_content"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />
@@ -133,7 +133,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 android:gravity="start"
-                android:text="- any inaccuracies or changes to the Parking Hunt Services including the location, availability, or terms and conditions that apply to any parking service.\n- any interruptions or delays to access the app caused by any act or default of the  third party.\n- any direct, indirect, or sequential damage incurred by you or the third party in relation to the Parking Hunt services.\n"
+                android:text="@string/liability_content"
                 android:textColor="@color/quantum_white_text"
                 android:textSize="16sp"
                 android:textStyle="normal" />

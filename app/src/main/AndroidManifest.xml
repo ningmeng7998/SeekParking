@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.graceli.parkinghunt">
+    package="com.graceli.seekparking">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -18,38 +18,38 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Tutorial"
+            android:name="com.graceli.seekparking.Tutorial"
             android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".Intro5" />
-        <activity android:name=".Intro4" />
-        <activity android:name=".Intro3" />
-        <activity android:name=".Intro2" />
-        <activity android:name=".Intro1" />
+        <activity android:name="com.graceli.seekparking.Intro5" />
+        <activity android:name="com.graceli.seekparking.Intro4" />
+        <activity android:name="com.graceli.seekparking.Intro3" />
+        <activity android:name="com.graceli.seekparking.Intro2" />
+        <activity android:name="com.graceli.seekparking.Intro1" />
         <activity
-            android:name=".CounterDown"
+            android:name="com.graceli.seekparking.CounterDown"
             android:label="Parking Time"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".CounterConfig"
+            android:name="com.graceli.seekparking.CounterConfig"
             android:label="Parking Time"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".About"
+            android:name="com.graceli.seekparking.About"
             android:label="About Software"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".HelpPage"
+            android:name="com.graceli.seekparking.HelpPage"
             android:label="Help"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".UserGuide"
+            android:name="com.graceli.seekparking.UserGuide"
             android:label="User guide"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Links"
+        <activity android:name="com.graceli.seekparking.Links"
             android:label="User guide"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name=".Splash"
+            android:name="com.graceli.seekparking.Splash"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,7 +58,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.graceli.seekparking.MainActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <meta-data
