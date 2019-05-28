@@ -38,7 +38,7 @@
     <string name="play_again">Play Again</string>
     <string name="title_activity_tutorial_menu">TutorialMenu</string>
 
-    <string name="info_link1"><a href="https://seekparking.shinyapps.io/check_vacant_carpark/">Check available car parks ></a></string>
+    <string name="info_link1"><a href="https://seekparking.shinyapps.io/check_vacant_carpark/">Check by arrival time ></a></string>
 
     <string name="info_link2"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/parking-locations-fees/Pages/parking-locations-and-fees.aspx">Locations and Fees ></a></string>
     <string name="info_link3"><a href="https://www.melbourne.vic.gov.au/parking-and-transport/parking/Pages/parking.aspx#map">Parking Fines ></a></string>
